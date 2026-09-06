@@ -1,0 +1,41 @@
+.marquee-bar {
+  background: var(--accent-purple);
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+}
+
+.marquee-track {
+  overflow: hidden;
+  padding: 12px 0;
+}
+
+.marquee-inner {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.9);
+  padding: 0 32px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.marquee-dot {
+  font-size: 8px;
+  opacity: 0.6;
+}
+
+.marquee-inner:hover {
+  animation-play-state: paused;
+}

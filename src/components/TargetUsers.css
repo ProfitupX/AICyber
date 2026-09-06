@@ -1,0 +1,112 @@
+.target-users {
+  padding: 100px 24px;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.tu-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.tu-header {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 640px;
+}
+
+.tu-title {
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.tu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border-subtle);
+  border: 1px solid var(--border-subtle);
+}
+
+.tu-card {
+  background: var(--bg-card);
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: background var(--transition);
+}
+
+.tu-card:hover {
+  background: var(--bg-card-hover);
+}
+
+.tu-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tu-icon {
+  font-size: 32px;
+}
+
+.tu-badge {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  padding: 4px 10px;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+}
+
+.tu-role {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.tu-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.tu-needs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.tu-need {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tu-card-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.tu-card:hover .tu-card-bar {
+  opacity: 1;
+}
+
+@media (max-width: 900px) {
+  .tu-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,145 @@
+.validation-section {
+  padding: 100px 24px;
+  background: var(--bg-base);
+  border-top: 1px solid var(--border-subtle);
+  position: relative;
+  overflow: hidden;
+}
+
+.val-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.val-header {
+  margin-bottom: 24px;
+}
+
+.val-title {
+  font-size: clamp(32px, 5vw, 48px);
+  font-family: var(--font-header);
+  line-height: 1;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.val-title span { color: var(--accent-purple); }
+
+.val-subtitle {
+  color: var(--accent-yellow);
+  font-size: 14px;
+  letter-spacing: 0.1em;
+}
+
+/* Brutal Card Base */
+.card-brutal {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  padding: 32px;
+  position: relative;
+}
+.card-brutal::after {
+  content: '';
+  position: absolute;
+  top: 4px; left: 4px; right: -4px; bottom: -4px;
+  border: 1px solid var(--border-subtle);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.case-badge {
+  display: inline-block;
+  background: var(--accent-yellow);
+  color: #000;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+
+.case-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.case-link {
+  display: inline-block;
+  color: var(--text-secondary);
+  font-size: 12px;
+  text-decoration: none;
+  margin-bottom: 32px;
+  transition: color 0.2s;
+}
+.case-link:hover { color: var(--accent-yellow); }
+
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.case-box {
+  padding: 24px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-base);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.problem-box { border-top: 3px solid #ef4444; }
+.gap-box { border-top: 3px solid #f59e0b; }
+.solution-box { border-top: 3px solid var(--accent-green); background: rgba(34,197,94,0.05); }
+
+.cb-icon { font-size: 24px; }
+.cb-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.cb-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+/* Split */
+.val-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.sub-section-title {
+  font-size: 20px;
+  margin-bottom: 24px;
+  font-weight: 700;
+}
+
+/* Tech List */
+.tech-list { display: flex; flex-direction: column; gap: 16px; }
+.tech-item {
+  padding: 16px;
+  border-left: 2px solid var(--border-subtle);
+  background: rgba(255,255,255,0.02);
+}
+.tech-item:hover { border-color: var(--accent-purple); background: rgba(124,58,237,0.05); }
+.tech-name { font-size: 12px; font-weight: 700; color: var(--accent-purple); margin-bottom: 6px; letter-spacing: 0.05em; }
+.tech-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+
+/* IEEE List */
+.ieee-list { display: flex; flex-direction: column; gap: 24px; }
+.ieee-item { display: flex; flex-direction: column; gap: 8px; }
+.ieee-tag {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  padding: 2px 8px;
+  border: 1px solid var(--accent-yellow);
+  color: var(--accent-yellow);
+  background: rgba(255, 238, 88, 0.1);
+}
+.ieee-title { font-size: 15px; font-weight: 700; line-height: 1.4; }
+.ieee-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.5; }
+
+@media (max-width: 900px) {
+  .case-grid { grid-template-columns: 1fr; }
+  .val-split { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,101 @@
+.dash-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg-base);
+  color: var(--text-1);
+}
+
+.dash-main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.dash-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  background: var(--bg-base);
+}
+
+/* ============================================================
+   LIGHT DASHBOARD THEME (QuickBooks / Clean UI Style)
+   Overrides the dark variables from index.css
+   ============================================================ */
+.dashboard-theme {
+  --bg-base:       #f4f7fa;
+  --bg-surface:    #ffffff;
+  --bg-card:       #ffffff;
+  --bg-card-hover: #f8fafc;
+  --bg-input:      #f1f5f9;
+
+  --border:        #e2e8f0;
+  --border-m:      #cbd5e1;
+
+  --text-1:        #0f172a;
+  --text-2:        #334155;
+  --text-3:        #64748b;
+  --text-4:        #94a3b8;
+
+  --radius-sm:     10px;
+  --radius:        16px;
+  --radius-lg:     24px;
+
+  /* Softer, more vibrant dashboard accents */
+  --purple:        #6366f1; /* Indigo-ish */
+  --purple-l:      #818cf8;
+  --purple-d:      #4f46e5;
+  
+  --green:         #10b981;
+  --green-l:       #34d399;
+  
+  --red:           #ef4444;
+  --red-l:         #f87171;
+  
+  --orange:        #f59e0b;
+  --yellow-l:      #fbbf24;
+  
+  --cyan:          #0ea5e9;
+  --cyan-l:        #38bdf8;
+  
+  color: var(--text-1);
+}
+
+/* Base structural overrides for the modern look */
+.dashboard-theme .card {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0,0,0,0.02);
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+}
+
+.dashboard-theme .btn {
+  border-radius: 20px; /* Pill shaped */
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.dashboard-theme .badge {
+  border-radius: 12px;
+  padding: 4px 10px;
+  font-family: var(--font-ui); /* Move away from mono for badges */
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.dashboard-theme .input {
+  border-radius: 12px;
+  border-color: var(--border);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.01);
+}
+
+/* Adjust skeleton for light mode */
+.dashboard-theme .skeleton {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+}
+

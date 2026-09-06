@@ -1,0 +1,9 @@
+/* App-level layout */
+.app {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+:root {
+  --accent-orange: #ff6b00;
+}

@@ -1,0 +1,236 @@
+.sidebar {
+  width: var(--sidebar-w);
+  height: 100vh;
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* BRAND */
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.brand-icon {
+  font-size: 22px;
+  color: var(--purple-l);
+  line-height: 1;
+}
+
+.brand-name {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  font-family: var(--font-mono);
+  color: var(--text-1);
+}
+
+.brand-name span { color: var(--purple-l); }
+
+.brand-sub {
+  font-size: 9px;
+  color: var(--text-3);
+  letter-spacing: 0.08em;
+  margin-top: 1px;
+}
+
+/* HEALTH */
+.sidebar-health {
+  padding: 12px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.health-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.health-label {
+  font-size: 9px;
+  color: var(--text-3);
+  letter-spacing: 0.08em;
+  flex: 1;
+}
+
+.health-val {
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+.health-val.green  { color: var(--green-l); }
+.health-val.yellow { color: var(--yellow-l); }
+.health-val.red    { color: var(--red-l); }
+
+.sidebar-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0;
+  flex-shrink: 0;
+}
+
+/* NAV */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 10px 10px;
+  flex: 1;
+}
+
+.nav-section-label {
+  font-size: 9px;
+  color: var(--text-4);
+  letter-spacing: 0.12em;
+  padding: 6px 8px 4px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: var(--text-2);
+  font-size: 13px;
+  font-weight: 500;
+  transition: all var(--transition);
+  position: relative;
+}
+
+.sidebar-link:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-1);
+}
+
+.sidebar-link.active {
+  background: rgba(99,102,241,0.08); /* Indigo light */
+  color: var(--purple-d);
+  border-left: 3px solid var(--purple);
+  padding-left: 7px;
+}
+
+.sidebar-link-icon {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.sidebar-link-label {
+  flex: 1;
+}
+
+.sidebar-badge {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  font-size: 9px;
+  font-family: var(--font-mono);
+  padding: 1px 6px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.sidebar-link.active .sidebar-badge {
+  background: var(--purple);
+  border-color: var(--purple);
+  color: #fff;
+}
+
+/* ACTIVE CASE */
+.sidebar-active-case {
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.case-label {
+  font-size: 9px;
+  color: var(--text-4);
+  letter-spacing: 0.1em;
+}
+
+.case-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.case-progress-bar {
+  height: 3px;
+  background: var(--bg-card);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.case-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--purple), var(--purple-l));
+  border-radius: 2px;
+  transition: width 0.5s ease;
+}
+
+.case-pct {
+  font-size: 10px;
+  color: var(--text-3);
+}
+
+/* FOOTER */
+.sidebar-footer {
+  padding: 14px 18px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--purple-d);
+  color: var(--purple-l);
+  font-size: 11px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.user-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.user-role {
+  font-size: 9px;
+  color: var(--text-3);
+  letter-spacing: 0.05em;
+}

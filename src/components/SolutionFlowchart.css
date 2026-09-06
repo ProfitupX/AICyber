@@ -1,0 +1,500 @@
+.flowchart-section {
+  padding: 80px 24px;
+  background: var(--bg-base, #070809);
+  border-top: 1px solid var(--border, rgba(255,255,255,0.06));
+  position: relative;
+  overflow: hidden;
+}
+
+.flowchart-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+/* Header & Toolbar */
+.flowchart-toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-bottom: 8px;
+}
+
+.toolbar-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.badge-sih {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(14, 165, 233, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  letter-spacing: 0.08em;
+}
+
+.toolbar-title {
+  font-size: clamp(24px, 3.5vw, 36px);
+  font-weight: 800;
+  color: var(--text-1, #ffffff);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.toolbar-subtitle {
+  font-size: 14px;
+  color: var(--text-2, #94a3b8);
+  max-width: 700px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Actions */
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Slide Selector Pills */
+.slide-selector-group {
+  display: flex;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.12));
+  border-radius: 24px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.slide-tab-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-2, #94a3b8);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.slide-tab-btn:hover {
+  color: #ffffff;
+}
+
+.slide-tab-btn.active {
+  background: #0284c7;
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(2, 132, 199, 0.4);
+}
+
+/* Theme switch pill */
+.theme-toggle-group {
+  display: flex;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.12));
+  border-radius: 24px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.theme-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-2, #94a3b8);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-btn:hover {
+  color: #ffffff;
+}
+
+.theme-btn.active {
+  background: #0ea5e9;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.4);
+}
+
+/* Export buttons */
+.btn-export-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-1, #ffffff);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.15));
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-export-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #38bdf8;
+  color: #38bdf8;
+  transform: translateY(-1px);
+}
+
+.btn-export-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #ffffff;
+  border: 1px solid #38bdf8;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+  transition: all 0.2s ease;
+}
+
+.btn-export-primary:hover {
+  background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-export-primary:disabled,
+.btn-export-secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* SVG Canvas wrapper */
+.flowchart-canvas-wrapper {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transition: background 0.3s ease, border-color 0.3s ease;
+  position: relative;
+}
+
+.flowchart-canvas-wrapper.light-canvas {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+}
+
+.flowchart-canvas-wrapper.dark-canvas {
+  background: #070b14;
+  border: 1px solid #1e293b;
+}
+
+.flowchart-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+}
+
+/* ============================================================
+   STEP-BY-STEP TECHNICAL EXECUTION EXPLORER
+   ============================================================ */
+.execution-section {
+  background: var(--bg-card, #0d0f11);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.section-header-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-1, #ffffff);
+  margin-top: 4px;
+}
+
+.execution-step-counter {
+  font-size: 12px;
+  color: #38bdf8;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+/* Step navigation pills */
+.execution-tabs-nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.exec-tab-btn {
+  background: var(--bg-surface, #121518);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  border-radius: 10px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.exec-tab-btn:hover {
+  border-color: #0284c7;
+  background: rgba(2, 132, 199, 0.08);
+}
+
+.exec-tab-btn.active {
+  background: rgba(2, 132, 199, 0.15);
+  border-color: #38bdf8;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.2);
+}
+
+.exec-num {
+  font-size: 13px;
+  font-weight: 800;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.exec-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-1, #ffffff);
+  line-height: 1.3;
+}
+
+/* Active Step Card */
+.exec-card {
+  background: var(--bg-surface, #121518);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  border-radius: 12px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.exec-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.exec-badge-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.badge-pill {
+  background: #0284c7;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 14px;
+}
+
+.badge-tech {
+  background: rgba(255, 255, 255, 0.06);
+  color: #7dd3fc;
+  border: 1px solid rgba(125, 211, 252, 0.25);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 14px;
+}
+
+.exec-icon-box {
+  font-size: 32px;
+}
+
+.exec-heading {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-1, #ffffff);
+  margin: 0;
+}
+
+.exec-subheading {
+  font-size: 12px;
+  color: #38bdf8;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.exec-desc {
+  font-size: 14px;
+  color: var(--text-2, #cbd5e1);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.exec-bullet-list {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.06));
+  border-radius: 8px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exec-bullet-title {
+  font-size: 11px;
+  color: var(--text-3, #64748b);
+  letter-spacing: 0.1em;
+}
+
+.exec-bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-1, #f1f5f9);
+  line-height: 1.5;
+}
+
+.bullet-check {
+  color: #10b981;
+  font-weight: 900;
+}
+
+.exec-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid var(--border, rgba(255, 255, 255, 0.06));
+}
+
+/* ============================================================
+   TECH STACK MATRIX TABLE
+   ============================================================ */
+.tech-matrix-section {
+  background: var(--bg-card, #0d0f11);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tech-matrix-table-wrap {
+  overflow-x: auto;
+}
+
+.tech-matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.tech-matrix-table th {
+  text-align: left;
+  padding: 14px 18px;
+  background: var(--bg-surface, #121518);
+  color: var(--text-2, #94a3b8);
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.1));
+}
+
+.tech-matrix-table td {
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.06));
+  color: var(--text-2, #cbd5e1);
+  vertical-align: middle;
+}
+
+.tech-matrix-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.layer-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  white-space: nowrap;
+}
+
+.tech-title-text {
+  color: var(--text-1, #ffffff);
+  font-size: 13px;
+}
+
+.status-badge {
+  font-size: 10px;
+  font-family: var(--font-mono, monospace);
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.status-live {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+@media (max-width: 768px) {
+  .flowchart-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .toolbar-actions {
+    justify-content: flex-start;
+  }
+  .slide-selector-group {
+    flex-direction: column;
+  }
+  .flowchart-section {
+    padding: 50px 16px;
+  }
+  .execution-section,
+  .tech-matrix-section {
+    padding: 20px 16px;
+  }
+}

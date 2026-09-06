@@ -1,0 +1,228 @@
+.userflow {
+  padding: 100px 24px;
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border-subtle);
+  position: relative;
+  overflow: hidden;
+}
+
+.userflow::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(57,255,20,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.userflow-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.userflow-header {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 680px;
+}
+
+.userflow-title {
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.userflow-subtitle {
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+/* TIMELINE */
+.flow-timeline {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.flow-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  min-width: 100px;
+  padding: 0 8px;
+  transition: all var(--transition);
+}
+
+.flow-step-num {
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  transition: color var(--transition);
+}
+
+.flow-step-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  transition: all 0.3s;
+  background: transparent;
+  color: white;
+}
+
+.flow-step.done .flow-step-circle {
+  font-size: 16px;
+}
+
+.flow-step-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: color var(--transition);
+  text-align: center;
+}
+
+.flow-step.active .flow-step-label,
+.flow-step.done .flow-step-label {
+  color: var(--text-primary);
+}
+
+.flow-connector {
+  flex: 1;
+  height: 1px;
+  background: var(--border-subtle);
+  margin-bottom: 26px;
+  transition: background 0.3s;
+  min-width: 30px;
+}
+
+.flow-connector.done {
+  background: rgba(57,255,20,0.3);
+}
+
+/* DETAIL */
+.flow-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  padding: 40px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-left: 2px solid var(--accent-purple);
+  animation: fadeIn 0.3s ease;
+}
+
+.flow-detail-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.flow-detail-num {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+
+.flow-detail-title {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.flow-detail-subtitle {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+
+.flow-detail-desc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.flow-detail-right {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.flow-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.flow-detail-item:last-of-type {
+  border-bottom: none;
+}
+
+.flow-detail-item-num {
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.flow-nav {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.flow-nav-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.flow-nav-btn:hover:not(:disabled) {
+  border-color: var(--text-secondary);
+  color: var(--text-primary);
+}
+
+.flow-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.flow-nav-btn--next {
+  border-color: currentColor;
+}
+
+.flow-nav-btn--next:hover:not(:disabled) {
+  background: rgba(255,255,255,0.05);
+}
+
+@media (max-width: 768px) {
+  .flow-detail {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 24px;
+  }
+}
