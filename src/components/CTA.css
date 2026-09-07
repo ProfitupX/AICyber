@@ -1,139 +1,112 @@
-.cta {
-  padding: 0 24px 100px;
-  background: var(--bg-secondary);
-  border-top: 1px solid var(--border-subtle);
+.cta-section {
+  position: relative;
+  padding: 120px 24px;
+  background: #030305;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.cta-inner {
-  max-width: 1400px;
-  margin: 0 auto;
+.cta-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, rgba(245, 158, 11, 0.1) 50%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+.cta-card-wrap {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1080px;
+  padding: 64px 40px;
+  text-align: center;
+  border-radius: 32px;
+  background: linear-gradient(135deg, rgba(16, 20, 30, 0.9) 0%, rgba(9, 11, 17, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 240, 255, 0.1);
   display: flex;
   flex-direction: column;
-  gap: 0;
+  align-items: center;
 }
 
-/* STATUS BAR */
-.cta-status-bar {
-  border-bottom: 1px solid var(--border-subtle);
-  padding: 32px 0;
-}
-
-.cta-status-items {
-  display: flex;
-  gap: 0;
-  flex-wrap: wrap;
-}
-
-.cta-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 0 40px;
-  border-right: 1px solid var(--border-subtle);
-  flex: 1;
-  min-width: 160px;
-}
-
-.cta-stat:first-child { padding-left: 0; }
-.cta-stat:last-child { border-right: none; }
-
-/* MAIN */
-.cta-main {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  padding-top: 80px;
-  align-items: start;
-}
-
-.cta-left {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
+.cta-pill {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #00f0ff;
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  padding: 5px 14px;
+  border-radius: 9999px;
+  margin-bottom: 24px;
 }
 
 .cta-title {
-  font-size: clamp(40px, 5vw, 64px);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  line-height: 1.15;
+  margin-bottom: 18px;
+  max-width: 800px;
+}
+
+.cta-highlight {
+  background: linear-gradient(135deg, #00f0ff 0%, #38bdf8 50%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .cta-desc {
   font-size: 16px;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  max-width: 480px;
+  color: #94a3b8;
+  max-width: 620px;
+  line-height: 1.6;
+  margin-bottom: 36px;
 }
 
-.cta-links {
+.cta-btn-row {
   display: flex;
+  align-items: center;
   gap: 16px;
+  margin-bottom: 28px;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
-/* FORM */
-.cta-right {}
-
-.cta-form-box {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  padding: 36px;
+.cta-main-btn {
+  font-weight: 700;
 }
 
-.cta-form {
+.cta-main-btn:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+.cta-meta-row {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.form-input {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  font-size: 14px;
-  padding: 12px 16px;
-  outline: none;
-  transition: border-color var(--transition);
-  border-radius: 0;
-}
-
-.form-input::placeholder {
-  color: var(--text-muted);
-}
-
-.form-input:focus {
-  border-color: var(--accent-purple);
-}
-
-.cta-success {
-  display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 12px;
-  padding: 40px 0;
-  text-align: center;
-  animation: fadeInUp 0.4s ease;
+  font-size: 12px;
+  color: #64748b;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-@media (max-width: 900px) {
-  .cta-main {
-    grid-template-columns: 1fr;
-    gap: 48px;
+@media (max-width: 640px) {
+  .cta-card-wrap {
+    padding: 40px 20px;
   }
-}
-
-@media (max-width: 600px) {
-  .cta-stat {
-    padding: 16px 20px;
-    min-width: calc(50% - 1px);
-    flex: none;
+  .cta-btn-row {
+    flex-direction: column;
+    width: 100%;
+  }
+  .cta-btn-row a {
+    width: 100%;
   }
 }

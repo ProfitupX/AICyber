@@ -1,0 +1,179 @@
+/* ============================================================
+   TWINAI LANDING PAGE — OBSIDIAN CYBERNETIC DESIGN SYSTEM
+   Encapsulated to protect Dashboard styling
+   ============================================================ */
+
+.landing-page-root {
+  --lp-bg: #030305;
+  --lp-surface: #0a0c10;
+  --lp-card: rgba(14, 18, 26, 0.75);
+  --lp-card-hover: rgba(20, 26, 38, 0.85);
+  --lp-border: rgba(255, 255, 255, 0.08);
+  --lp-border-m: rgba(255, 255, 255, 0.14);
+  
+  --lp-cyan: #00f0ff;
+  --lp-cyan-glow: rgba(0, 240, 255, 0.25);
+  --lp-amber: #f59e0b;
+  --lp-amber-l: #fbbf24;
+  --lp-amber-glow: rgba(245, 158, 11, 0.25);
+  --lp-purple: #8b5cf6;
+  --lp-purple-l: #a78bfa;
+  --lp-green: #10b981;
+  --lp-green-l: #34d399;
+  
+  --lp-text-1: #ffffff;
+  --lp-text-2: #94a3b8;
+  --lp-text-3: #64748b;
+  
+  --lp-font-display: 'Syne', system-ui, sans-serif;
+  --lp-font-ui: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --lp-font-tech: 'Space Grotesk', system-ui, sans-serif;
+  --lp-font-mono: 'JetBrains Mono', monospace;
+
+  background: var(--lp-bg);
+  color: var(--lp-text-1);
+  font-family: var(--lp-font-ui);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ── TYPOGRAPHY UTILITIES ── */
+.landing-page-root .font-display { font-family: var(--lp-font-display); }
+.landing-page-root .font-tech    { font-family: var(--lp-font-tech); }
+.landing-page-root .font-ui      { font-family: var(--lp-font-ui); }
+.landing-page-root .font-mono    { font-family: var(--lp-font-mono); }
+
+/* ── GLASS & CARDS ── */
+.landing-page-root .glass-card {
+  background: var(--lp-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--lp-border);
+  border-radius: 18px;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.landing-page-root .glass-card:hover {
+  border-color: var(--lp-border-m);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.7);
+}
+
+/* ── BUTTONS ── */
+.landing-page-root .btn-pill-white {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #ffffff;
+  color: #030305;
+  font-family: var(--lp-font-ui);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  border: 1px solid #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.landing-page-root .btn-pill-white:hover {
+  background: #f1f5f9;
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+.landing-page-root .btn-pill-glass {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  color: #ffffff;
+  font-family: var(--lp-font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.landing-page-root .btn-pill-glass:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.landing-page-root .btn-sm { padding: 6px 14px; font-size: 12px; }
+.landing-page-root .btn-lg { padding: 14px 28px; font-size: 15px; }
+
+/* ── BADGES ── */
+.landing-page-root .badge-cyan {
+  background: rgba(0, 240, 255, 0.08);
+  color: var(--lp-cyan);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+}
+
+.landing-page-root .badge-amber {
+  background: rgba(245, 158, 11, 0.08);
+  color: var(--lp-amber-l);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.landing-page-root .badge-purple {
+  background: rgba(139, 92, 246, 0.1);
+  color: var(--lp-purple-l);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+}
+
+.landing-page-root .badge-green {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--lp-green-l);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+/* ── KEYFRAME ANIMATIONS ── */
+@keyframes lpFloatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes lpPulseGlow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 0.95; transform: scale(1.05); }
+}
+
+.landing-page-root .animate-float {
+  animation: lpFloatSlow 6s ease-in-out infinite;
+}
+
+.landing-page-root .animate-pulse-glow {
+  animation: lpPulseGlow 4s ease-in-out infinite;
+}
+
+/* ── AMBIENT GLOW LIGHTS ── */
+.landing-page-root .ambient-glow-cyan {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.14) 0%, rgba(0, 240, 255, 0) 70%);
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+.landing-page-root .ambient-glow-amber {
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.14) 0%, rgba(245, 158, 11, 0) 70%);
+  pointer-events: none;
+  filter: blur(40px);
+}

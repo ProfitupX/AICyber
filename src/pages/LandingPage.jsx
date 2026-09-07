@@ -1,30 +1,25 @@
 import React from 'react'
 import Navbar from '../components/Navbar.jsx'
 import Hero from '../components/Hero.jsx'
-import MarqueeBar from '../components/MarqueeBar.jsx'
-import ProblemStatement from '../components/ProblemStatement.jsx'
-import TargetUsers from '../components/TargetUsers.jsx'
-import Architecture from '../components/Architecture.jsx'
-import Features from '../components/Features.jsx'
-import UserFlow from '../components/UserFlow.jsx'
-import Validation from '../components/Validation.jsx'
-import TechStack from '../components/TechStack.jsx'
+import StatementBanner from '../components/StatementBanner.jsx'
+import HowItWorks from '../components/HowItWorks.jsx'
+import ArchitectureBento from '../components/ArchitectureBento.jsx'
+import LiveGraphDemo from '../components/LiveGraphDemo.jsx'
+import ComplianceStats from '../components/ComplianceStats.jsx'
 import CTA from '../components/CTA.jsx'
 import Footer from '../components/Footer.jsx'
+import './LandingPage.css'
 
 export default function LandingPage() {
   return (
-    <div className="app">
+    <div className="landing-page-root">
       <Navbar />
       <Hero />
-      <MarqueeBar />
-      <ProblemStatement />
-      <TargetUsers />
-      <Architecture />
-      <Features />
-      <UserFlow />
-      <Validation />
-      <TechStack />
+      <StatementBanner />
+      <HowItWorks />
+      <ArchitectureBento />
+      <LiveGraphDemo />
+      <ComplianceStats />
       <CTA />
       <Footer />
     </div>

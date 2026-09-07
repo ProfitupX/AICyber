@@ -1,64 +1,77 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './Footer.css'
 
-const Footer = () => (
-  <footer className="footer">
-    <div className="footer-inner">
-      <div className="footer-top">
-        <div className="footer-brand">
-          <div className="brand" style={{ display:'flex', alignItems:'center', gap:'8px' }}>
-            <span style={{ fontSize:'20px', color:'var(--accent-purple-light)' }}>⬡</span>
-            <span style={{ fontFamily:'var(--font-mono)', fontSize:'18px', fontWeight:700 }}>
-              TWIN<span style={{ color:'var(--accent-purple-light)' }}>AI</span>
-            </span>
+export default function Footer() {
+  return (
+    <footer className="site-footer">
+      <div className="footer-container">
+        <div className="footer-top-grid">
+          {/* Brand Info */}
+          <div className="footer-brand-col">
+            <div className="footer-brand-logo">
+              <div className="brand-icon-wrap">
+                <span className="brand-dot-amber" />
+                <span className="brand-dot-cyan" />
+              </div>
+              <span className="brand-name font-display">TwinAI</span>
+            </div>
+            <p className="footer-brand-desc">
+              National AI-Powered Criminal Network &amp; Syndicate Analysis System. Engineered for Law Enforcement, Intelligence Wings, and Cyber Defense Command.
+            </p>
+            <div className="footer-badge-item font-mono">
+              ⚖️ BNS 2023 &amp; BSA Sec 65B Compliant
+            </div>
           </div>
-          <p style={{ fontSize:'13px', color:'#555', lineHeight:1.6, maxWidth:'280px', marginTop:'12px' }}>
-            AI-Powered Criminal Intelligence &amp; Knowledge Graph Platform.<br />
-            Next-Gen Law Enforcement Analytics.
-          </p>
-          <div className="footer-badges">
-            <span className="tag tag-purple">Enterprise Ready</span>
-            <span className="tag tag-green">ISO/IEC 27001 Compliant</span>
+
+          {/* Quick Links */}
+          <div className="footer-col">
+            <div className="footer-col-title font-mono">PLATFORM</div>
+            <ul className="footer-links">
+              <li><Link to="/dashboard">Investigation Console</Link></li>
+              <li><Link to="/dashboard/graph">Network Graph 3D</Link></li>
+              <li><Link to="/dashboard/suspects">Kingpin Registry</Link></li>
+              <li><Link to="/dashboard/cases">Active Case Files</Link></li>
+              <li><Link to="/dashboard/upload">Evidence Ingestion</Link></li>
+              <li><Link to="/dashboard/chat">Copilot AI Assistant</Link></li>
+            </ul>
+          </div>
+
+          {/* Architecture */}
+          <div className="footer-col">
+            <div className="footer-col-title font-mono">INTELLIGENCE</div>
+            <ul className="footer-links">
+              <li><a href="#how-it-works">4-Stage Pipeline</a></li>
+              <li><a href="#architecture">Dual-Agent Engine</a></li>
+              <li><a href="#architecture">Betweenness Centrality</a></li>
+              <li><a href="#compliance">Sec 65B Evidence Vault</a></li>
+              <li><a href="#live-graph">Live Simulator</a></li>
+            </ul>
+          </div>
+
+          {/* Security */}
+          <div className="footer-col">
+            <div className="footer-col-title font-mono">DEFENSE STANDARDS</div>
+            <ul className="footer-links">
+              <li><span className="footer-muted">CERT-In Air-Gapped Ready</span></li>
+              <li><span className="footer-muted">AES-256 &amp; TLS 1.3 Encryption</span></li>
+              <li><span className="footer-muted">Zero LLM Training on Data</span></li>
+              <li><span className="footer-muted">Postgres &amp; Supabase RLS</span></li>
+            </ul>
           </div>
         </div>
 
-        <div className="footer-links">
-          <div className="footer-col">
-            <div className="mono footer-col-title">Platform</div>
-            {['Overview', 'Graph Engine', 'Kingpin Detection', 'Evidence Vault', 'AI Copilot'].map(l => (
-              <a key={l} href="/dashboard" className="footer-link">{l}</a>
-            ))}
+        {/* Bottom Bar */}
+        <div className="footer-bottom-bar">
+          <div className="footer-copy font-mono">
+            © {new Date().getFullYear()} TwinAI National Crime Intelligence System. All rights reserved.
           </div>
-          <div className="footer-col">
-            <div className="mono footer-col-title">Resources</div>
-            {['Documentation', 'API Reference', 'Security Whitepaper', 'System Architecture', 'Compliance'].map(l => (
-              <a key={l} href="#" className="footer-link">{l}</a>
-            ))}
-          </div>
-          <div className="footer-col">
-            <div className="mono footer-col-title">Enterprise</div>
-            {['Request Demo', 'Cloud & On-Prem', 'Security Audit', 'Support'].map(l => (
-              <a key={l} href="#contact" className="footer-link">{l}</a>
-            ))}
+          <div className="footer-status-pill font-mono">
+            <span className="pulse-dot pulse-green" />
+            <span>ALL DEFENSE ENGINES OPERATIONAL</span>
           </div>
         </div>
       </div>
-
-      <div className="footer-bottom">
-        <span className="mono" style={{ fontSize:'10px', color:'#444' }}>
-          © 2026 TwinAI Technologies. All rights reserved.
-        </span>
-        <div className="footer-bottom-right">
-          <span className="mono" style={{ fontSize:'10px', color:'var(--accent-green)' }}>
-            ● CONNECTION_SECURE
-          </span>
-          <span className="mono" style={{ fontSize:'10px', color:'#444' }}>
-            SCN:0001 | NODE:TWINAI_01
-          </span>
-        </div>
-      </div>
-    </div>
-  </footer>
-)
-
-export default Footer
+    </footer>
+  )
+}

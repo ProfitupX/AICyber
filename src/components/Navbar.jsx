@@ -2,92 +2,73 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './Navbar.css'
 
-const Navbar = () => {
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
-  const [time, setTime] = useState('')
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40)
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20)
+    }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  useEffect(() => {
-    const tick = () => {
-      const now = new Date()
-      setTime(now.toTimeString().slice(0, 8))
-    }
-    tick()
-    const id = setInterval(tick, 1000)
-    return () => clearInterval(id)
-  }, [])
-
-  const navLinks = [
-    { label: 'Platform', href: '#system' },
-    { label: 'Architecture', href: '#architecture' },
-    { label: 'Capabilities', href: '#features' },
-    { label: 'Workflow', href: '#flow' },
-    { label: 'Tech Stack', href: '#tech' },
-  ]
-
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-      <div className="navbar-inner">
-        {/* LEFT */}
-        <div className="navbar-left">
-          <div className="brand">
-            <span className="brand-icon">⬡</span>
-            <span className="brand-name">TWIN<span className="brand-accent">AI</span></span>
+    <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
+      <nav className="navbar-container">
+        {/* Brand */}
+        <Link to="/" className="nav-brand">
+          <div className="brand-icon-wrap">
+            <span className="brand-dot-amber" />
+            <span className="brand-dot-cyan" />
           </div>
-          <div className="nav-sep" />
-          <span className="navbar-status">
-            <span className="status-dot" />
-            <span className="mono" style={{ fontSize: '11px', color: '#888' }}>SYS.LIVE</span>
-          </span>
+          <span className="brand-name font-display">TwinAI</span>
+          <span className="brand-tag font-mono">v2.4</span>
+        </Link>
+
+        {/* Center Nav Links */}
+        <div className="nav-links-desktop">
+          <a href="#how-it-works" className="nav-link">How It Works</a>
+          <a href="#architecture" className="nav-link">Dual Engine</a>
+          <a href="#live-graph" className="nav-link">Network Graph</a>
+          <a href="#compliance" className="nav-link">Compliance</a>
         </div>
 
-        {/* CENTER */}
-        <ul className="nav-links">
-          {navLinks.map(l => (
-            <li key={l.label}>
-              <a href={l.href} className="nav-link">{l.label}</a>
-            </li>
-          ))}
-        </ul>
-
-        {/* RIGHT */}
-        <div className="navbar-right">
-          <div className="nav-time mono">{time} IST</div>
-          <Link to="/dashboard" className="btn btn-primary btn-sm">
-            Launch Dashboard →
+        {/* Action Controls */}
+        <div className="nav-actions">
+          <Link to="/dashboard/chat" className="nav-link-subtle font-mono">
+            Copilot AI
           </Link>
-          <button
-            className={`hamburger ${menuOpen ? 'open' : ''}`}
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Menu"
+          <Link to="/dashboard" className="btn btn-pill-white btn-sm nav-cta-btn">
+            Launch Console
+            <span className="cta-arrow">→</span>
+          </Link>
+          <button 
+            className="mobile-toggle" 
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle Menu"
           >
-            <span /><span /><span />
+            <span className={`bar ${mobileOpen ? 'open' : ''}`} />
+            <span className={`bar ${mobileOpen ? 'open' : ''}`} />
           </button>
         </div>
-      </div>
+      </nav>
 
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="mobile-menu">
-          {navLinks.map(l => (
-            <a key={l.label} href={l.href} className="mobile-link" onClick={() => setMenuOpen(false)}>
-              <span className="mono" style={{ color: '#555', fontSize: '11px' }}>/ </span>
-              {l.label}
-            </a>
-          ))}
-          <Link to="/dashboard" className="btn btn-primary" style={{ marginTop: '16px', textAlign: 'center', justifyContent: 'center' }}>
-            Launch Dashboard →
-          </Link>
+      {/* Mobile Drawer */}
+      {mobileOpen && (
+        <div className="mobile-drawer animate-fadein">
+          <a href="#how-it-works" onClick={() => setMobileOpen(false)}>How It Works</a>
+          <a href="#architecture" onClick={() => setMobileOpen(false)}>Dual Engine</a>
+          <a href="#live-graph" onClick={() => setMobileOpen(false)}>Network Graph</a>
+          <a href="#compliance" onClick={() => setMobileOpen(false)}>Compliance</a>
+          <div className="mobile-drawer-btns">
+            <Link to="/dashboard" className="btn btn-pill-white" onClick={() => setMobileOpen(false)}>
+              Launch Console →
+            </Link>
+          </div>
         </div>
       )}
-    </nav>
+    </header>
   )
 }
-
-export default Navbar

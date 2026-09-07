@@ -1,0 +1,278 @@
+.bento-section {
+  position: relative;
+  padding: 120px 24px;
+  background: #030305;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.bento-glow-left {
+  top: 20%;
+  left: -150px;
+  opacity: 0.35;
+}
+
+.bento-glow-right {
+  bottom: 10%;
+  right: -150px;
+  opacity: 0.35;
+}
+
+.bento-container {
+  width: 100%;
+  max-width: 1160px;
+}
+
+.bento-header {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 56px;
+}
+
+.bento-badge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #fbbf24;
+  margin-bottom: 12px;
+}
+
+.bento-title {
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+
+.bento-star {
+  color: #00f0ff;
+}
+
+.bento-subtitle {
+  font-size: 16px;
+  color: #94a3b8;
+}
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+}
+
+.bento-card {
+  padding: 32px;
+  border-radius: 24px;
+  background: rgba(14, 18, 26, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bento-card-large {
+  grid-column: span 12;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 36px;
+  align-items: center;
+  padding: 40px;
+  background: linear-gradient(135deg, rgba(16, 20, 30, 0.8) 0%, rgba(9, 11, 17, 0.9) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.chip-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #fbbf24;
+  margin-bottom: 16px;
+}
+
+.chip-headline {
+  font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.chip-headline-sub {
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.chip-desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #94a3b8;
+  margin-bottom: 28px;
+}
+
+.chip-specs-row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.chip-spec {
+  display: flex;
+  flex-direction: column;
+}
+
+.spec-val {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.spec-lbl {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.chip-card-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chip-render-img {
+  width: 100%;
+  max-width: 440px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(245, 158, 11, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.chip-render-img:hover {
+  transform: scale(1.03);
+}
+
+.bento-card-medium {
+  grid-column: span 6;
+}
+
+.bento-card-small {
+  grid-column: span 6;
+}
+
+.bento-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.bento-mini-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  border: 1px solid;
+}
+
+.bento-icon {
+  font-size: 20px;
+}
+
+.bento-card-title {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.bento-card-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #94a3b8;
+  margin-bottom: 24px;
+}
+
+.agent-debate-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.agent-bubble {
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bubble-det {
+  border-left: 3px solid #f59e0b;
+}
+
+.bubble-adv {
+  border-left: 3px solid #00f0ff;
+}
+
+.b-tag {
+  font-size: 9px;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.b-text {
+  font-size: 12px;
+  color: #ffffff;
+}
+
+.math-formula-box {
+  padding: 14px 18px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+}
+
+.formula-line {
+  font-size: 13px;
+  color: #00f0ff;
+  margin-bottom: 6px;
+}
+
+.formula-status {
+  font-size: 11px;
+  color: #34d399;
+}
+
+.hash-pill, .syndicate-pill {
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 6px;
+  font-size: 12px;
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.hash-pill {
+  color: #34d399;
+}
+
+.syndicate-pill {
+  color: #a78bfa;
+}
+
+@media (max-width: 960px) {
+  .bento-card-large {
+    grid-template-columns: 1fr;
+    padding: 28px;
+  }
+  .bento-card-medium, .bento-card-small {
+    grid-column: span 12;
+  }
+}
