@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { IconCheck } from './common/Icons.jsx'
 import './CTA.css'
 
 export default function CTA() {
@@ -28,12 +29,18 @@ export default function CTA() {
           </Link>
         </div>
 
-        <div className="cta-meta-row font-mono">
-          <span>✓ Supabase Live Sync</span>
+        <div className="cta-meta-row font-mono" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+            <IconCheck size={12} color="#34d399" /> Encrypted Cloud Sync
+          </span>
           <span>·</span>
-          <span>✓ Gemini Flash-Lite Optimizations</span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+            <IconCheck size={12} color="#00f0ff" /> Dual-Agent Neural Engine
+          </span>
           <span>·</span>
-          <span>✓ BSA Sec 65B Certified</span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+            <IconCheck size={12} color="#fbbf24" /> BSA Sec 65B Certified
+          </span>
         </div>
       </div>
     </section>

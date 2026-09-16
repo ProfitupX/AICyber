@@ -1,12 +1,13 @@
 import React from 'react'
+import { IconFolder, IconNetwork, IconClock, IconActivity } from './common/Icons.jsx'
 import './ProblemStatement.css'
 
 const ProblemStatement = () => {
   const challenges = [
-    { icon: '📂', title: 'Fragmented Data', desc: 'FIRs, CDRs, bank records scattered across isolated systems — no unified view.' },
-    { icon: '🔗', title: 'Hidden Connections', desc: 'Manual analysis fails to surface complex multi-hop criminal relationships.' },
-    { icon: '⏱', title: 'Speed vs Accuracy', desc: 'Time-sensitive investigations require instant insights without sacrificing precision.' },
-    { icon: '📊', title: 'Unstructured Sources', desc: 'Raw PDFs, Excel sheets, and text reports need intelligent parsing before use.' },
+    { icon: <IconFolder size={20} color="var(--accent-purple-light)" />, title: 'Fragmented Data', desc: 'FIRs, CDRs, bank records scattered across isolated systems — no unified view.' },
+    { icon: <IconNetwork size={20} color="var(--accent-cyan)" />, title: 'Hidden Connections', desc: 'Manual analysis fails to surface complex multi-hop criminal relationships.' },
+    { icon: <IconClock size={20} color="var(--accent-yellow)" />, title: 'Speed vs Accuracy', desc: 'Time-sensitive investigations require instant insights without sacrificing precision.' },
+    { icon: <IconActivity size={20} color="var(--accent-green)" />, title: 'Unstructured Sources', desc: 'Raw PDFs, Excel sheets, and text reports need intelligent parsing before use.' },
   ]
 
   return (

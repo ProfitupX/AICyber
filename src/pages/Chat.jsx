@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { askCopilot } from '../services/gemini.js'
 import { fetchSuspects, fetchCases } from '../services/supabase.js'
+import { IconCpu, IconVolume2, IconVolumeX, IconCopy, IconZap, IconTarget, IconScale, IconActivity, IconShieldCheck } from '../components/common/Icons.jsx'
 import './Chat.css'
 
 const SUGGESTED = [
@@ -16,7 +17,7 @@ const INITIAL_GREETING = [
   {
     id: 1,
     role: 'system',
-    text: '🛡️ **TwinAI Live Copilot Online**. Connected to Supabase PostgreSQL & Google Gemini Flash. Ready to assist with cross-jurisdiction entity extraction, CDR timeline analysis, and statutory framing under Bharatiya Nyaya Sanhita (BNS) & BSA 2023.',
+    text: '**TwinAI Live Copilot Online**. Connected to National Crime Intelligence Database. Ready to assist with cross-jurisdiction entity extraction, CDR timeline analysis, and statutory framing under Bharatiya Nyaya Sanhita (BNS) & BSA 2023.',
     time: 'System Live'
   }
 ]
@@ -94,7 +95,7 @@ export default function Chat() {
         {
           id: Date.now() + 1,
           role: 'ai',
-          text: `⚠️ Error fetching response: ${err.message}. Please verify Gemini API connectivity.`,
+          text: `Error fetching response: ${err.message}. Please verify Neural Engine connectivity.`,
           time: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })
         }
       ])
@@ -130,11 +131,13 @@ export default function Chat() {
       <div className="chat-main card">
         <div className="chat-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div className="brand-icon" style={{ width: '32px', height: '32px', fontSize: '16px' }}>⬡</div>
+            <div className="brand-icon" style={{ width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <IconCpu size={16} color="var(--purple-l)" />
+            </div>
             <div>
               <h3 style={{ fontSize: '14px', fontWeight: 700, margin: 0 }}>TwinAI Live Officer Copilot</h3>
               <div className="mono" style={{ fontSize: '10px', color: 'var(--text-3)', marginTop: '2px' }}>
-                Engine: Google Gemini Flash · Live Context: {suspects.length} Suspects, {cases.length} Cases
+                Engine: TwinAI Neural Core · Live Context: {suspects.length} Suspects, {cases.length} Cases
               </div>
             </div>
           </div>
@@ -161,7 +164,7 @@ export default function Chat() {
           {messages.map(m => (
             <div key={m.id} className={`chat-msg chat-msg--${m.role}`}>
               <div className="chat-msg-avatar">
-                {m.role === 'user' ? 'IO' : m.role === 'ai' ? '⬡' : '//'}
+                {m.role === 'user' ? 'IO' : m.role === 'ai' ? <IconCpu size={14} color="var(--cyan-l)" /> : '//'}
               </div>
               <div className="chat-msg-content">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
@@ -182,16 +185,20 @@ export default function Chat() {
                     <button 
                       onClick={() => handleCopy(m.text)} 
                       className="btn btn-ghost btn-sm"
-                      style={{ fontSize: '10px', padding: '2px 6px', height: '22px' }}
+                      style={{ fontSize: '10px', padding: '2px 8px', height: '22px' }}
                     >
-                      📋 Copy for GD Entry
+                      <IconCopy size={12} /> Copy for GD Entry
                     </button>
                     <button 
                       onClick={() => handleSpeak(m.text)} 
                       className="btn btn-ghost btn-sm"
-                      style={{ fontSize: '10px', padding: '2px 6px', height: '22px' }}
+                      style={{ fontSize: '10px', padding: '2px 8px', height: '22px' }}
                     >
-                      {isSpeaking ? '🔇 Stop Audio' : '🔊 Audio Briefing'}
+                      {isSpeaking ? (
+                        <><IconVolumeX size={12} /> Stop Audio</>
+                      ) : (
+                        <><IconVolume2 size={12} /> Audio Briefing</>
+                      )}
                     </button>
                   </div>
                 )}
@@ -201,7 +208,9 @@ export default function Chat() {
 
           {typing && (
             <div className="chat-msg chat-msg--ai">
-              <div className="chat-msg-avatar">⬡</div>
+              <div className="chat-msg-avatar">
+                <IconCpu size={14} color="var(--cyan-l)" />
+              </div>
               <div className="chat-msg-content">
                 <div className="typing-indicator">
                   <span /><span /><span />
@@ -234,7 +243,7 @@ export default function Chat() {
               disabled={typing}
             />
             <button className="btn btn-primary" onClick={() => send(input)} disabled={typing || !input.trim()}>
-              Send Query ↗
+              <IconZap size={14} /> Send Query
             </button>
           </div>
         </div>
@@ -243,8 +252,8 @@ export default function Chat() {
       {/* Right Sidebar: Context & Shortcuts */}
       <div className="chat-sidebar">
         <div className="card">
-          <h3 style={{ fontSize: '12px', fontWeight: 700, marginBottom: '12px', color: 'var(--text-1)' }}>
-            🎯 Tactical Prompt Templates
+          <h3 style={{ fontSize: '12px', fontWeight: 700, marginBottom: '12px', color: 'var(--text-1)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <IconTarget size={14} color="var(--purple-l)" /> Tactical Prompt Templates
           </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             {SUGGESTED.map(s => (
@@ -256,8 +265,8 @@ export default function Chat() {
         </div>
 
         <div className="card">
-          <h3 style={{ fontSize: '12px', fontWeight: 700, marginBottom: '10px', color: 'var(--text-1)' }}>
-            ⚖️ Statutory Standards Active
+          <h3 style={{ fontSize: '12px', fontWeight: 700, marginBottom: '10px', color: 'var(--text-1)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <IconScale size={14} color="var(--green-l)" /> Statutory Standards Active
           </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <div style={{ padding: '6px 8px', background: 'var(--bg-card-2)', borderRadius: '6px', borderLeft: '3px solid var(--purple-l)' }}>
@@ -276,7 +285,9 @@ export default function Chat() {
         </div>
 
         <div className="card">
-          <h3 style={{ fontSize: '12px', fontWeight: 700, marginBottom: '10px' }}>⚡ Live Node Intelligence</h3>
+          <h3 style={{ fontSize: '12px', fontWeight: 700, marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <IconActivity size={14} color="var(--cyan-l)" /> Live Node Intelligence
+          </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px' }}>
               <span style={{ color: 'var(--text-2)' }}>Active Suspects:</span>
@@ -288,7 +299,7 @@ export default function Chat() {
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px' }}>
               <span style={{ color: 'var(--text-2)' }}>AI Engine:</span>
-              <span className="mono" style={{ fontWeight: 700, color: 'var(--green-l)' }}>Gemini Flash</span>
+              <span className="mono" style={{ fontWeight: 700, color: 'var(--green-l)' }}>TwinAI Neural Core</span>
             </div>
           </div>
         </div>

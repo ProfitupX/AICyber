@@ -444,7 +444,7 @@ Guidelines:
   })
 
   if (!response.success) {
-    return `⚠️ Copilot Note: Running in offline triage mode. Found ${suspects.length} targets and ${cases.length} cases in system registry.`
+    return `[OFFLINE] Copilot Note: Running in offline triage mode. Found ${suspects.length} targets and ${cases.length} cases in system registry.`
   }
 
   return response.text

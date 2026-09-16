@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
+import { IconUpload, IconCpu, IconActivity, IconNetwork, IconZap, IconCheck } from './common/Icons.jsx'
 import './UserFlow.css'
 
 const steps = [
   {
     num: '01',
-    icon: '📤',
+    icon: <IconUpload size={18} />,
     title: 'Upload',
     subtitle: 'Data Ingestion',
     desc: 'Officer uploads a batch of FIR PDFs and an Excel sheet of Call Records directly to the platform.',
@@ -13,7 +14,7 @@ const steps = [
   },
   {
     num: '02',
-    icon: '⚙',
+    icon: <IconCpu size={18} />,
     title: 'Processing',
     subtitle: 'TwinAI Analysis',
     desc: 'System shows a real-time loading state while TwinAI agents extract and debate the data to verify connections.',
@@ -22,7 +23,7 @@ const steps = [
   },
   {
     num: '03',
-    icon: '📊',
+    icon: <IconActivity size={18} />,
     title: 'Review',
     subtitle: 'Intelligence Summary',
     desc: 'System presents: "Found 15 suspects, 3 major financial links, 1 potential mastermind." Ready for visual analysis.',
@@ -31,7 +32,7 @@ const steps = [
   },
   {
     num: '04',
-    icon: '🕸',
+    icon: <IconNetwork size={18} />,
     title: 'Visualize',
     subtitle: 'Graph Map',
     desc: 'Officer clicks "Open Graph Map". The screen shows the full digital criminal network — interactive and explorable.',
@@ -40,7 +41,7 @@ const steps = [
   },
   {
     num: '05',
-    icon: '⚡',
+    icon: <IconZap size={18} />,
     title: 'Action',
     subtitle: 'Evidence Deep-Dive',
     desc: 'Officer clicks on a connection line to see exact proof: "Transferred Rs.50,000 on Oct 12 via HDFC → SBI."',
@@ -79,7 +80,7 @@ const UserFlow = () => {
               >
                 <div className="flow-step-num mono" style={{ color: activeStep === i ? s.color : undefined }}>{s.num}</div>
                 <div className="flow-step-circle" style={{ borderColor: activeStep >= i ? s.color : undefined, background: activeStep > i ? s.color : activeStep === i ? `${s.color}22` : undefined }}>
-                  {activeStep > i ? '✓' : s.icon}
+                  {activeStep > i ? <IconCheck size={16} /> : s.icon}
                 </div>
                 <div className="flow-step-label">{s.title}</div>
               </div>

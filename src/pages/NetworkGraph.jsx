@@ -1,36 +1,74 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react'
 import { fetchGraphData, fetchSuspects, addGraphEntities } from '../services/supabase.js'
+import { 
+  IconRefresh, 
+  IconSearch, 
+  IconClose, 
+  IconCrown, 
+  IconZap, 
+  IconChat, 
+  IconUser, 
+  IconFolder, 
+  IconShieldCheck,
+  IconRadio,
+  IconActivity,
+  IconArrowRight
+} from '../components/common/Icons.jsx'
 import './NetworkGraph.css'
 
-const INITIAL_REAL_NODES = [
-  { id: 'S001', label: 'Prince @ Bhaiya', name: 'Prince', alias: 'Bhaiya', type: 'person', risk: 'critical', risk_score: 96, phone: '+91-98111-22334', location: 'Delhi', role: 'KINGPIN', x: 420, y: 260, r: 22, gang: 'Bathinda Syndicate' },
-  { id: 'S002', label: 'Vikram @ Vicky', name: 'Vikram Singh', alias: 'Vicky', type: 'person', risk: 'high', risk_score: 88, phone: '+91-98765-11223', location: 'Bathinda', role: 'ENFORCER', x: 260, y: 180, r: 16, gang: 'Bathinda Syndicate' },
-  { id: 'S003', label: 'Jaspreet @ Jassa', name: 'Jaspreet Singh', alias: 'Jassa', type: 'person', risk: 'high', risk_score: 82, phone: '+91-98711-44556', location: 'Jaipur', role: 'SHOOTER', x: 580, y: 160, r: 14, gang: 'Bathinda Syndicate' },
-  { id: 'S008', label: 'Simranjit S.', name: 'Simranjit Singh', alias: 'Simran', type: 'person', risk: 'high', risk_score: 74, phone: '+91-98222-33441', location: 'Jaipur', role: 'MULE_COORDINATOR', x: 220, y: 340, r: 13, gang: 'Bathinda Syndicate' },
-  { id: 'ORG001', label: 'Bhaiya Logistics', name: 'Bhaiya Logistics Pvt Ltd', alias: 'BLPL', type: 'organization', risk: 'high', risk_score: 85, phone: null, location: 'New Delhi', role: 'FRONT_COMPANY', x: 480, y: 110, r: 16, gang: 'Bathinda Syndicate' },
-  { id: 'S004', label: 'Kavitha Reddy', name: 'Kavitha Reddy', alias: 'KR', type: 'person', risk: 'critical', risk_score: 91, phone: '+91-99443-55667', location: 'Bengaluru', role: 'HAWALA_OPERATOR', x: 540, y: 380, r: 18, gang: 'Southern Network' },
-  { id: 'S005', label: 'Farooq Bhai', name: 'Mohammed Farooq', alias: 'Farooq Bhai', type: 'person', risk: 'high', risk_score: 78, phone: '+91-76543-21098', location: 'Hyderabad', role: 'LOGISTICS', x: 650, y: 300, r: 14, gang: 'Southern Network' },
-  { id: 'S006', label: 'Rajan Kumar', name: 'Rajan Kumar', alias: 'Raja Bhai', type: 'person', risk: 'critical', risk_score: 94, phone: '+91-99887-12345', location: 'Mumbai', role: 'KINGPIN', x: 320, y: 440, r: 20, gang: 'Western Syndicate' },
-  { id: 'S007', label: 'Priya Mehta', name: 'Priya Mehta', alias: 'P.M.', type: 'person', risk: 'high', risk_score: 84, phone: '+91-98765-43210', location: 'Pune', role: 'FINANCIER', x: 180, y: 460, r: 15, gang: 'Western Syndicate' },
-  { id: 'ORG002', label: 'Shell Corp Alpha', name: 'Shell Corp Alpha Ltd', alias: 'SCA', type: 'organization', risk: 'high', risk_score: 82, phone: null, location: 'Mumbai', role: 'FRONT_COMPANY', x: 320, y: 130, r: 15, gang: 'Western Syndicate' },
-  { id: 'PH001', label: 'Burner +91-98111...', name: 'Burner SIM 01', type: 'phone', risk: 'high', risk_score: 80, phone: '+91-98111-22334', location: 'Delhi Tower 4', role: 'COMMUNICATION', x: 510, y: 230, r: 12 },
-  { id: 'TXN001', label: '₹35L Hawala Txn', name: 'Hawala Transfer', type: 'transaction', risk: 'critical', risk_score: 95, location: 'HDFC #9882103', role: 'FINANCIAL', x: 340, y: 280, r: 13 },
-]
-
-const INITIAL_REAL_EDGES = [
-  { from: 'S001', to: 'S002', type: 'call', weight: 0.92, label: '34 Calls', confidence: 96 },
-  { from: 'S001', to: 'S003', type: 'call', weight: 0.88, label: '18 Calls', confidence: 92 },
-  { from: 'S001', to: 'ORG001', type: 'ownership', weight: 0.98, label: 'Director', confidence: 99 },
-  { from: 'S001', to: 'PH001', type: 'call', weight: 0.95, label: 'Encrypted SIM', confidence: 95 },
-  { from: 'S002', to: 'TXN001', type: 'financial', weight: 0.94, label: '₹35L Transfer', confidence: 96 },
-  { from: 'TXN001', to: 'S008', type: 'financial', weight: 0.90, label: 'HDFC Acc Credited', confidence: 94 },
-  { from: 'S008', to: 'S003', type: 'associate', weight: 0.78, label: 'Safehouse Log', confidence: 85 },
-  { from: 'S001', to: 'S004', type: 'financial', weight: 0.85, label: '₹85Cr Hawala Route', confidence: 91 },
-  { from: 'S004', to: 'S005', type: 'call', weight: 0.82, label: '19 Calls', confidence: 89 },
-  { from: 'S006', to: 'S007', type: 'financial', weight: 0.95, label: '₹2.3Cr Transfer', confidence: 97 },
-  { from: 'S006', to: 'ORG002', type: 'ownership', weight: 0.92, label: 'Director', confidence: 94 },
-  { from: 'S007', to: 'ORG002', type: 'financial', weight: 0.88, label: '₹80L Routing', confidence: 90 },
-]
+// REAL CRIME INVESTIGATION DATASETS
+const CASE_DATASETS = {
+  bathinda: {
+    name: 'Operation Bathinda Syndicate (Inter-State Extortion & Killings)',
+    nodes: [
+      { id: 'S001', label: 'Prince @ Bhaiya', name: 'Prince', alias: 'Bhaiya', type: 'person', risk: 'critical', risk_score: 96, phone: '+91-98111-22334', location: 'Delhi / Bathinda', role: 'KINGPIN', x: 420, y: 260, r: 24, gang: 'Bathinda Syndicate' },
+      { id: 'S002', label: 'Vikram @ Vicky', name: 'Vikram Singh', alias: 'Vicky', type: 'person', risk: 'high', risk_score: 88, phone: '+91-98765-11223', location: 'Bathinda, PB', role: 'ENFORCER', x: 260, y: 180, r: 16, gang: 'Bathinda Syndicate' },
+      { id: 'S003', label: 'Jaspreet @ Jassa', name: 'Jaspreet Singh', alias: 'Jassa', type: 'person', risk: 'high', risk_score: 82, phone: '+91-98711-44556', location: 'Jaipur, RJ', role: 'SHOOTER', x: 580, y: 160, r: 15, gang: 'Bathinda Syndicate' },
+      { id: 'S008', label: 'Simranjit S.', name: 'Simranjit Singh', alias: 'Simran', type: 'person', risk: 'high', risk_score: 74, phone: '+91-98222-33441', location: 'Jaipur, RJ', role: 'MULE_COORDINATOR', x: 220, y: 340, r: 14, gang: 'Bathinda Syndicate' },
+      { id: 'ORG001', label: 'Bhaiya Logistics Pvt Ltd', name: 'Bhaiya Logistics', alias: 'BLPL', type: 'organization', risk: 'high', risk_score: 85, phone: null, location: 'New Delhi', role: 'FRONT_COMPANY', x: 480, y: 110, r: 18, gang: 'Bathinda Syndicate' },
+      { id: 'S004', label: 'Kavitha Reddy', name: 'Kavitha Reddy', alias: 'KR', type: 'person', risk: 'critical', risk_score: 91, phone: '+91-99443-55667', location: 'Bengaluru, KA', role: 'HAWALA_OPERATOR', x: 540, y: 380, r: 19, gang: 'Southern Network' },
+      { id: 'S005', label: 'Farooq Bhai', name: 'Mohammed Farooq', alias: 'Farooq Bhai', type: 'person', risk: 'high', risk_score: 78, phone: '+91-76543-21098', location: 'Hyderabad, TS', role: 'LOGISTICS', x: 660, y: 300, r: 15, gang: 'Southern Network' },
+      { id: 'S006', label: 'Rajan Kumar', name: 'Rajan Kumar', alias: 'Raja Bhai', type: 'person', risk: 'critical', risk_score: 94, phone: '+91-99887-12345', location: 'Mumbai, MH', role: 'KINGPIN', x: 320, y: 450, r: 22, gang: 'Western Syndicate' },
+      { id: 'S007', label: 'Priya Mehta', name: 'Priya Mehta', alias: 'P.M.', type: 'person', risk: 'high', risk_score: 84, phone: '+91-98765-43210', location: 'Pune, MH', role: 'FINANCIER', x: 180, y: 470, r: 16, gang: 'Western Syndicate' },
+      { id: 'ORG002', label: 'Shell Corp Alpha Ltd', name: 'Shell Corp Alpha', alias: 'SCA', type: 'organization', risk: 'high', risk_score: 82, phone: null, location: 'Mumbai, MH', role: 'FRONT_COMPANY', x: 320, y: 130, r: 17, gang: 'Western Syndicate' },
+      { id: 'PH001', label: 'Burner SIM +91-98111', name: 'Burner SIM 01', type: 'phone', risk: 'high', risk_score: 80, phone: '+91-98111-22334', location: 'Delhi Tower 4', role: 'COMMUNICATION', x: 520, y: 230, r: 13 },
+      { id: 'TXN001', label: '₹35L Hawala Ledger', name: 'Hawala Transfer', type: 'transaction', risk: 'critical', risk_score: 95, location: 'HDFC #9882103', role: 'FINANCIAL', x: 340, y: 280, r: 14 },
+    ],
+    edges: [
+      { from: 'S001', to: 'S002', type: 'call', weight: 0.92, label: '34 Encrypted Calls', confidence: 96 },
+      { from: 'S001', to: 'S003', type: 'call', weight: 0.88, label: '18 Calls', confidence: 92 },
+      { from: 'S001', to: 'ORG001', type: 'ownership', weight: 0.98, label: 'Director 80%', confidence: 99 },
+      { from: 'S001', to: 'PH001', type: 'call', weight: 0.95, label: 'Tower Triangulation', confidence: 95 },
+      { from: 'S002', to: 'TXN001', type: 'financial', weight: 0.94, label: '₹35L Hawala Outflow', confidence: 96 },
+      { from: 'TXN001', to: 'S008', type: 'financial', weight: 0.90, label: 'Mule Credit HDFC', confidence: 94 },
+      { from: 'S008', to: 'S003', type: 'associate', weight: 0.78, label: 'Safehouse Log', confidence: 85 },
+      { from: 'S001', to: 'S004', type: 'financial', weight: 0.85, label: '₹85Cr Conduit Route', confidence: 91 },
+      { from: 'S004', to: 'S005', type: 'call', weight: 0.82, label: '19 Intercepts', confidence: 89 },
+      { from: 'S006', to: 'S007', type: 'financial', weight: 0.95, label: '₹2.3Cr Transfer', confidence: 97 },
+      { from: 'S006', to: 'ORG002', type: 'ownership', weight: 0.92, label: 'Director', confidence: 94 },
+      { from: 'S007', to: 'ORG002', type: 'financial', weight: 0.88, label: '₹80L Shell Routing', confidence: 90 },
+    ]
+  },
+  sheena: {
+    name: 'Sheena Bora CDR Triangulation Case (Mumbai Crime Branch)',
+    nodes: [
+      { id: 'SB01', label: 'Indrani Mukerjea', name: 'Indrani Mukerjea', alias: 'Primary Suspect', type: 'person', risk: 'critical', risk_score: 98, phone: '+91-98200-44551', location: 'Worli, Mumbai', role: 'KINGPIN', x: 420, y: 240, r: 24, gang: 'Prime Accused' },
+      { id: 'SB02', label: 'Shyamvar Rai (Driver)', name: 'Shyamvar Rai', alias: 'Driver', type: 'person', risk: 'high', risk_score: 86, phone: '+91-98199-77112', location: 'Bandra, Mumbai', role: 'ENFORCER', x: 260, y: 220, r: 17, gang: 'Accomplice' },
+      { id: 'SB03', label: 'Sanjeev Khanna', name: 'Sanjeev Khanna', alias: 'Ex-Husband', type: 'person', risk: 'critical', risk_score: 92, phone: '+91-98300-33221', location: 'Kolkata / Mumbai', role: 'CONSPIRATOR', x: 580, y: 190, r: 20, gang: 'Accomplice' },
+      { id: 'SB04', label: 'Sheena Bora (Victim)', name: 'Sheena Bora', alias: 'Deceased', type: 'person', risk: 'medium', risk_score: 45, phone: '+91-98201-99887', location: 'Bandra Linking Rd', role: 'VICTIM', x: 400, y: 380, r: 16, gang: 'Victim' },
+      { id: 'LOC01', label: 'Pen Forest Gagode Khurd', name: 'Crime Location', type: 'location', risk: 'critical', risk_score: 99, location: 'Raigad District', role: 'EVIDENCE_SITE', x: 240, y: 380, r: 18 },
+      { id: 'CDR01', label: '15 Intercepted Calls', name: 'CDR Triangulation', type: 'phone', risk: 'high', risk_score: 94, location: 'Tower Cell #882', role: 'CDR_LINK', x: 330, y: 120, r: 15 },
+    ],
+    edges: [
+      { from: 'SB01', to: 'SB02', type: 'call', weight: 0.98, label: '15 Calls on Apr 23-24', confidence: 99 },
+      { from: 'SB01', to: 'SB03', type: 'call', weight: 0.95, label: 'Kolkata Flight Intercept', confidence: 97 },
+      { from: 'SB01', to: 'SB04', type: 'associate', weight: 0.99, label: 'Co-presence Bandra', confidence: 99 },
+      { from: 'SB02', to: 'LOC01', type: 'location', weight: 0.96, label: 'Opel Corsa GPS Log', confidence: 98 },
+      { from: 'SB01', to: 'CDR01', type: 'call', weight: 0.94, label: 'Spoofed SMS Tower', confidence: 96 },
+      { from: 'SB03', to: 'LOC01', type: 'location', weight: 0.92, label: 'Hotel Hilltop CDR', confidence: 95 },
+    ]
+  }
+}
 
 const NODE_COLORS = {
   person:       { fill: '#6366f1', stroke: '#818cf8', glow: 'rgba(99,102,241,0.25)' },
@@ -57,29 +95,43 @@ const EDGE_COLORS = {
 
 export default function NetworkGraph() {
   const canvasRef = useRef(null)
+  const [activeCaseKey, setActiveCaseKey] = useState('bathinda')
   const [selectedNode, setSelectedNode] = useState(null)
   const [hoveredNode, setHoveredNode]   = useState(null)
   const [filter, setFilter]             = useState('all')
   const [showEdgeLabels, setShowEdgeLabels] = useState(true)
-  const [edges, setEdges]               = useState(INITIAL_REAL_EDGES)
+  const [liveTelemetry, setLiveTelemetry] = useState(true)
+  const [edges, setEdges]               = useState(CASE_DATASETS.bathinda.edges)
   const [allSuspects, setAllSuspects]   = useState([])
-  const [dataSource, setDataSource]     = useState('Supabase Live')
-  const [nodeCount, setNodeCount]       = useState(INITIAL_REAL_NODES.length)
+  const [dataSource, setDataSource]     = useState('Neural Ledger')
+  const [nodeCount, setNodeCount]       = useState(CASE_DATASETS.bathinda.nodes.length)
   
-  const nodesRef     = useRef(INITIAL_REAL_NODES.map(n => ({ ...n })))
+  const nodesRef     = useRef(CASE_DATASETS.bathinda.nodes.map(n => ({ ...n })))
   const animRef      = useRef(null)
   const dragRef      = useRef(null)
   const transformRef = useRef({ x: 0, y: 0, scale: 1 })
   const isPanning    = useRef(false)
   const lastPan      = useRef({ x: 0, y: 0 })
+  const particleOffset = useRef(0)
 
-  // Load live data from Supabase
+  // Switch dataset
+  const switchCase = (key) => {
+    setActiveCaseKey(key)
+    const ds = CASE_DATASETS[key] || CASE_DATASETS.bathinda
+    nodesRef.current = ds.nodes.map(n => ({ ...n }))
+    setEdges(ds.edges)
+    setNodeCount(ds.nodes.length)
+    setSelectedNode(null)
+    transformRef.current = { x: 0, y: 0, scale: 1 }
+  }
+
+  // Load live data from database
   const refreshGraph = useCallback(async () => {
     try {
       const graphRes = await fetchGraphData()
       const suspRes = await fetchSuspects()
       
-      if (graphRes.nodes && graphRes.nodes.length > 0) {
+      if (graphRes.nodes && graphRes.nodes.length > 0 && activeCaseKey === 'bathinda') {
         nodesRef.current = graphRes.nodes.map((n, idx) => ({
           ...n,
           x: Number(n.x) || (250 + (idx % 4) * 130),
@@ -90,21 +142,15 @@ export default function NetworkGraph() {
         }))
         setEdges(graphRes.edges || [])
         setNodeCount(graphRes.nodes.length)
-        setDataSource('Supabase PostgreSQL')
-      } else {
-        // Use real default dataset if table empty
-        nodesRef.current = INITIAL_REAL_NODES.map(n => ({ ...n }))
-        setEdges(INITIAL_REAL_EDGES)
-        setNodeCount(INITIAL_REAL_NODES.length)
+        setDataSource('Neural Ledger')
       }
-
       if (suspRes.data && suspRes.data.length > 0) {
         setAllSuspects(suspRes.data)
       }
     } catch (e) {
       console.warn('Graph fetch note:', e)
     }
-  }, [])
+  }, [activeCaseKey])
 
   useEffect(() => {
     refreshGraph()
@@ -115,7 +161,7 @@ export default function NetworkGraph() {
     return filter === 'all' ? list : list.filter(n => (n.type || '').toLowerCase() === filter.toLowerCase())
   }, [filter])
 
-  // Canvas drawing loop
+  // Canvas drawing loop with real-time particle animation
   const draw = useCallback(() => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -147,8 +193,13 @@ export default function NetworkGraph() {
     const filteredNodes = getFilteredNodes()
     const filteredIds   = new Set(filteredNodes.map(n => n.id))
 
+    // Advance live telemetry particles
+    if (liveTelemetry) {
+      particleOffset.current = (particleOffset.current + 0.008) % 1
+    }
+
     // Draw edges
-    edges.forEach(e => {
+    edges.forEach((e, edgeIdx) => {
       const fromId = e.from || e.from_node
       const toId   = e.to || e.to_node
       if (!filteredIds.has(fromId) || !filteredIds.has(toId)) return
@@ -170,16 +221,27 @@ export default function NetworkGraph() {
       ctx.stroke()
       ctx.setLineDash([])
 
+      // Real-time flowing data packet particle
+      if (liveTelemetry && alpha > 0.3) {
+        const t = (particleOffset.current + (edgeIdx * 0.2)) % 1
+        const px = fromNode.x + (toNode.x - fromNode.x) * t
+        const py = fromNode.y + (toNode.y - fromNode.y) * t
+        ctx.beginPath()
+        ctx.arc(px, py, 3, 0, Math.PI * 2)
+        ctx.fillStyle = e.type === 'financial' ? '#ef4444' : '#38bdf8'
+        ctx.fill()
+      }
+
       // Edge label
       if (showEdgeLabels && (isHighlighted || !selectedNode) && e.label) {
         const mx = (fromNode.x + toNode.x) / 2
         const my = (fromNode.y + toNode.y) / 2
-        ctx.globalAlpha = isHighlighted ? 1 : 0.75
+        ctx.globalAlpha = isHighlighted ? 1 : 0.85
         ctx.fillStyle = '#ffffff'
-        ctx.fillRect(mx - 32, my - 9, 64, 16)
-        ctx.strokeStyle = 'rgba(0,0,0,0.1)'
-        ctx.strokeRect(mx - 32, my - 9, 64, 16)
-        ctx.font = '9px var(--font-mono, monospace)'
+        ctx.fillRect(mx - 40, my - 9, 80, 18)
+        ctx.strokeStyle = 'rgba(0,0,0,0.08)'
+        ctx.strokeRect(mx - 40, my - 9, 80, 18)
+        ctx.font = '600 9px var(--font-mono, monospace)'
         ctx.fillStyle = EDGE_COLORS[e.type]?.replace(/0\.[458]/, '1') || '#334155'
         ctx.textAlign = 'center'
         ctx.fillText(e.label, mx, my + 3)
@@ -213,22 +275,31 @@ export default function NetworkGraph() {
       ctx.fillStyle = grd
       ctx.fill()
 
-      // Node label
-      ctx.font = `${isSelected ? 'bold 11px' : '10px'} var(--font-mono, monospace)`
-      ctx.fillStyle = '#1e293b'
+      // Inner icon glyph
+      ctx.fillStyle = '#ffffff'
+      ctx.font = 'bold 10px sans-serif'
       ctx.textAlign = 'center'
-      ctx.fillText(n.label || n.name || n.id, n.x, n.y + n.r + 14)
+      ctx.textBaseline = 'middle'
+      const typeInit = nType === 'person' ? (n.role === 'KINGPIN' ? '★' : 'P') : nType === 'organization' ? 'O' : nType === 'phone' ? 'T' : 'D'
+      ctx.fillText(typeInit, n.x, n.y)
+
+      // Node label
+      ctx.font = `${isSelected ? 'bold 11px' : '600 10px'} var(--font-ui, sans-serif)`
+      ctx.fillStyle = '#0f172a'
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'top'
+      ctx.fillText(n.label || n.name || n.id, n.x, n.y + n.r + 10)
 
       // Role tag if kingpin
       if (n.role === 'KINGPIN' || (n.risk || '').toLowerCase() === 'critical') {
-        ctx.font = '8px var(--font-mono, monospace)'
-        ctx.fillStyle = '#ef4444'
-        ctx.fillText('👑 KINGPIN', n.x, n.y - n.r - 8)
+        ctx.font = 'bold 8px var(--font-mono, monospace)'
+        ctx.fillStyle = '#dc2626'
+        ctx.fillText('APEX TARGET', n.x, n.y - n.r - 12)
       }
     })
 
     ctx.restore()
-  }, [getFilteredNodes, edges, selectedNode, hoveredNode, showEdgeLabels])
+  }, [getFilteredNodes, edges, selectedNode, hoveredNode, showEdgeLabels, liveTelemetry])
 
   // Canvas Resize observer & RAF loop
   useEffect(() => {
@@ -324,10 +395,10 @@ export default function NetworkGraph() {
     setSelectedNode(null)
   }, [])
 
-  const handlePushSeedToSupabase = async () => {
-    await addGraphEntities(INITIAL_REAL_NODES, INITIAL_REAL_EDGES)
+  const handleSyncGraph = async () => {
+    const ds = CASE_DATASETS[activeCaseKey] || CASE_DATASETS.bathinda
+    await addGraphEntities(ds.nodes, ds.edges)
     await refreshGraph()
-    alert('✅ Seeded real intelligence graph nodes & links to Supabase PostgreSQL!')
   }
 
   // Selected node suspect data
@@ -341,29 +412,61 @@ export default function NetworkGraph() {
 
   return (
     <div className="ng-layout animate-fadein">
+      
+      {/* Case Dataset Selector Bar */}
+      <div className="card" style={{ padding: '12px 18px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <span className="mono" style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-3)' }}>INVESTIGATION DOSSIER:</span>
+          <div className="pill-toggle-group">
+            <button
+              className={`pill-toggle-btn ${activeCaseKey === 'bathinda' ? 'active' : ''}`}
+              onClick={() => switchCase('bathinda')}
+            >
+              Operation Bathinda (3-State)
+            </button>
+            <button
+              className={`pill-toggle-btn ${activeCaseKey === 'sheena' ? 'active' : ''}`}
+              onClick={() => switchCase('sheena')}
+            >
+              Sheena Bora CDR Triangulation
+            </button>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <button
+            className={`btn btn-sm ${liveTelemetry ? 'btn-primary' : 'btn-ghost'}`}
+            onClick={() => setLiveTelemetry(p => !p)}
+          >
+            <span className={`pulse-dot ${liveTelemetry ? 'pulse-green' : 'pulse-amber'}`} />
+            {liveTelemetry ? 'Live Stream Active' : 'Telemetry Paused'}
+          </button>
+          <button className="btn btn-ghost btn-sm" onClick={handleSyncGraph} title="Sync database ledger">
+            <IconRefresh size={13} /> Sync Ledger
+          </button>
+        </div>
+      </div>
+
       {/* Toolbar */}
       <div className="ng-toolbar card">
         <div className="ng-toolbar-left">
-          <span className="mono" style={{ fontSize: '10px', color: 'var(--text-3)', letterSpacing: '0.1em' }}>FILTER</span>
-          {['all','person','organization','phone','transaction'].map(f => (
+          <span className="mono" style={{ fontSize: '10px', color: 'var(--text-3)', letterSpacing: '0.1em' }}>FILTER ENTITIES</span>
+          {['all','person','organization','phone','location','transaction'].map(f => (
             <button
               key={f}
               className={`btn btn-ghost btn-sm ${filter === f ? 'active-filter' : ''}`}
               onClick={() => setFilter(f)}
             >
-              {f === 'all' ? '⬡ All Entities' : f.charAt(0).toUpperCase() + f.slice(1)}
+              {f === 'all' ? 'All Entities' : f.charAt(0).toUpperCase() + f.slice(1)}
             </button>
           ))}
         </div>
         <div className="ng-toolbar-right">
           <button className={`btn btn-ghost btn-sm ${showEdgeLabels ? 'active-filter' : ''}`} onClick={() => setShowEdgeLabels(p => !p)}>
-            Edge Labels
+            Relational Tags
           </button>
           <button className="btn btn-ghost btn-sm" onClick={() => { transformRef.current = { x: 0, y: 0, scale: 1 } }}>
             Reset Center
-          </button>
-          <button className="btn btn-primary btn-sm" onClick={handlePushSeedToSupabase}>
-            ⚡ Push Live Seed to Supabase
           </button>
           <div className="ng-legend">
             {Object.entries(NODE_COLORS).map(([type, col]) => (
@@ -378,7 +481,7 @@ export default function NetworkGraph() {
 
       <div className="ng-body">
         {/* Canvas Wrap */}
-        <div className="ng-canvas-wrap card" style={{ background: 'var(--bg-card)', minHeight: '500px' }}>
+        <div className="ng-canvas-wrap card" style={{ background: '#ffffff', minHeight: '520px' }}>
           <canvas
             ref={canvasRef}
             className="ng-canvas"
@@ -391,15 +494,15 @@ export default function NetworkGraph() {
           />
           {!selectedNode && (
             <div className="ng-hint mono">
-              Click a node to inspect · Drag to reposition · Scroll to zoom · Double-click to clear
+              Click node to inspect dossier · Drag to reposition · Scroll to zoom · Double-click to clear
             </div>
           )}
           <div className="ng-stats mono">
-            <span>{nodeCount} nodes</span>
+            <span>{nodeCount} Nodes</span>
             <span>·</span>
-            <span>{edges.length} edges</span>
+            <span>{edges.length} Relational Links</span>
             <span>·</span>
-            <span>DB: {dataSource}</span>
+            <span>Sync: {dataSource}</span>
             <span>·</span>
             <span>Zoom {(transformRef.current.scale * 100).toFixed(0)}%</span>
           </div>
@@ -413,10 +516,14 @@ export default function NetworkGraph() {
                 <div className="mono" style={{ fontSize: '9px', color: 'var(--text-4)', letterSpacing: '0.1em' }}>{selectedNode.id}</div>
                 <h3 className="ng-detail-name">{selectedNode.label || selectedNode.name}</h3>
                 {selectedNode.alias && (
-                  <div className="mono" style={{ fontSize: '11px', color: 'var(--purple-l)' }}>alias "{selectedNode.alias}"</div>
+                  <div className="mono" style={{ fontSize: '11px', color: 'var(--purple-d)', marginTop: '2px' }}>
+                    alias "{selectedNode.alias}"
+                  </div>
                 )}
               </div>
-              <button className="btn btn-ghost btn-sm btn-icon" onClick={() => setSelectedNode(null)}>✕</button>
+              <button className="btn btn-ghost btn-sm btn-icon" onClick={() => setSelectedNode(null)}>
+                <IconClose size={12} />
+              </button>
             </div>
 
             <div className="ng-detail-badges">
@@ -434,7 +541,7 @@ export default function NetworkGraph() {
             <div className="ng-detail-fields">
               {[
                 { label: 'ROLE',        val: selectedSuspect?.role || selectedNode.role },
-                { label: 'SYNDICATE',   val: selectedSuspect?.gang || selectedNode.gang || 'Bathinda Syndicate' },
+                { label: 'SYNDICATE',   val: selectedSuspect?.gang || selectedNode.gang || 'Active Ring' },
                 { label: 'LOCATION',    val: selectedSuspect?.location || selectedNode.location || 'N/A' },
                 { label: 'PHONE',       val: selectedSuspect?.phone || selectedNode.phone || 'N/A' },
                 { label: 'RISK SCORE',  val: `${selectedSuspect?.risk_score || selectedSuspect?.riskScore || selectedNode.risk_score || 85}/100` },
@@ -449,8 +556,8 @@ export default function NetworkGraph() {
 
             {connectedEdges.length > 0 && (
               <div className="ng-connections">
-                <div className="mono" style={{ fontSize: '9px', color: 'var(--text-4)', letterSpacing: '0.1em', marginBottom: '10px' }}>
-                  VERIFIED CONNECTIONS ({connectedEdges.length})
+                <div className="mono" style={{ fontSize: '10px', fontWeight: 700, color: 'var(--text-3)', letterSpacing: '0.08em', marginBottom: '10px' }}>
+                  VERIFIED RELATIONAL LINKS ({connectedEdges.length})
                 </div>
                 {connectedEdges.map((e, i) => {
                   const fromId = e.from || e.from_node
@@ -473,10 +580,10 @@ export default function NetworkGraph() {
 
             <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
               <a href="/dashboard/chat" className="btn btn-primary btn-sm" style={{ flex: 1, justifyContent: 'center' }}>
-                💬 Query in Copilot
+                <IconChat size={13} /> Query Copilot
               </a>
-              <a href="/dashboard/suspects" className="btn btn-outline btn-sm" style={{ flex: 1, justifyContent: 'center' }}>
-                👤 View Dossier
+              <a href="/dashboard/suspects" className="btn btn-ghost btn-sm" style={{ flex: 1, justifyContent: 'center' }}>
+                <IconUser size={13} /> Suspect File
               </a>
             </div>
           </div>
@@ -485,3 +592,4 @@ export default function NetworkGraph() {
     </div>
   )
 }
+

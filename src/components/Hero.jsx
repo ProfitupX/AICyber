@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import heroBustImg from '../assets/hero_cyber_bust.jpg'
+import { IconScale } from './common/Icons.jsx'
 import './Hero.css'
 
 export default function Hero() {
@@ -80,8 +81,8 @@ export default function Hero() {
             </a>
           </div>
 
-          <div className="hero-trust-note font-mono">
-            ⚖️ Certified for Court Dossiers under Bharatiya Sakshya Adhiniyam (BSA) Sec 65B
+          <div className="hero-trust-note font-mono" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+            <IconScale size={14} color="var(--purple-l)" /> Certified for Court Dossiers under Bharatiya Sakshya Adhiniyam (BSA) Sec 65B
           </div>
         </div>
 

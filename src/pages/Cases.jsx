@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { fetchCases, saveCase, fetchSuspects } from '../services/supabase.js'
+import { IconPlus, IconClose, IconFileText, IconChat, IconDatabase, IconFilter } from '../components/common/Icons.jsx'
 import './Cases.css'
 
 const PRIORITY_COLOR = { CRITICAL: 'var(--red-l)', HIGH: 'var(--orange)', MEDIUM: 'var(--yellow-l)', LOW: 'var(--green-l)' }
@@ -110,7 +111,9 @@ Generated via TwinAI National Crime Intelligence System
         </div>
         <div className="controls-right">
           <span className="mono" style={{ fontSize: '11px', color: 'var(--text-3)' }}>{filtered.length} active case files</span>
-          <button className="btn btn-primary btn-sm" onClick={() => setShowNewModal(true)}>+ New Case File</button>
+          <button className="btn btn-primary btn-sm" onClick={() => setShowNewModal(true)}>
+            <IconPlus size={14} /> New Case File
+          </button>
         </div>
       </div>
 
@@ -187,7 +190,9 @@ Generated via TwinAI National Crime Intelligence System
                 <span className="mono" style={{ fontSize: '9px', color: 'var(--text-4)' }}>{cs.id}</span>
                 <h2 className="cd-title">{cs.title}</h2>
               </div>
-              <button className="btn btn-ghost btn-sm btn-icon" onClick={() => setSelected(null)}>✕</button>
+              <button className="btn btn-ghost btn-sm btn-icon" onClick={() => setSelected(null)} aria-label="Close detail">
+                <IconClose size={16} />
+              </button>
             </div>
 
             <p className="cd-desc">{cs.description}</p>
@@ -210,10 +215,10 @@ Generated via TwinAI National Crime Intelligence System
 
             <div style={{ marginTop: '16px', display: 'flex', gap: '8px' }}>
               <button className="btn btn-primary btn-sm" onClick={() => exportCaseDossier(cs)} style={{ flex: 1, justifyContent: 'center' }}>
-                📄 Export 65B Dossier
+                <IconFileText size={14} /> Export 65B Dossier
               </button>
-              <a href="/dashboard/chat" className="btn btn-outline btn-sm" style={{ flex: 1, justifyContent: 'center' }}>
-                💬 Copilot Briefing
+              <a href="/dashboard/chat" className="btn btn-outline btn-sm" style={{ flex: 1, justifyContent: 'center', textDecoration: 'none' }}>
+                <IconChat size={14} /> Copilot Briefing
               </a>
             </div>
           </div>
@@ -226,7 +231,9 @@ Generated via TwinAI National Crime Intelligence System
           <div className="card animate-fadein" style={{ width: '440px', background: 'var(--bg-card)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
               <h3 style={{ fontSize: '14px', fontWeight: 700, margin: 0 }}>Register New Case File</h3>
-              <button className="btn btn-ghost btn-sm btn-icon" onClick={() => setShowNewModal(false)}>✕</button>
+              <button className="btn btn-ghost btn-sm btn-icon" onClick={() => setShowNewModal(false)} aria-label="Close modal">
+                <IconClose size={16} />
+              </button>
             </div>
             <form onSubmit={handleCreateCase} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <div>
@@ -282,7 +289,7 @@ Generated via TwinAI National Crime Intelligence System
                 />
               </div>
               <button type="submit" className="btn btn-primary" style={{ marginTop: '8px', justifyContent: 'center' }}>
-                Create Case in Supabase 💾
+                <IconDatabase size={14} /> Create Case File
               </button>
             </form>
           </div>

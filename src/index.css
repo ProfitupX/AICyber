@@ -35,8 +35,8 @@
   --border: rgba(255,255,255,0.06);
   --border-m: rgba(255,255,255,0.1);
 
-  --font-ui:   'Space Grotesk', system-ui, sans-serif;
-  --font-mono: 'Space Mono', 'Courier New', monospace;
+  --font-ui:   'Plus Jakarta Sans', 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Space Mono', monospace;
 
   --radius-sm: 4px;
   --radius:    8px;

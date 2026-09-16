@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { fetchSuspects, fetchGraphData } from '../services/supabase.js'
 import { callGemini } from '../services/gemini.js'
+import { IconCrown, IconZap, IconNetwork, IconChat } from '../components/common/Icons.jsx'
 import './Kingpins.css'
 
 const METRICS = [
@@ -144,7 +145,11 @@ Provide:
             <div className="kp-podium-score" style={{ color: RANK_COLORS[i] }}>
               {k.overall}<span style={{ fontSize: '14px', opacity: 0.5 }}>/100</span>
             </div>
-            {i === 0 && <div className="kp-crown">👑</div>}
+            {i === 0 && (
+              <div className="kp-crown" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <IconCrown size={16} color="var(--yellow-l)" />
+              </div>
+            )}
           </div>
         ))}
       </div>
@@ -171,7 +176,7 @@ Provide:
           <div className="kp-bar-chart">
             {sorted.length === 0 ? (
               <div style={{ padding: '24px', textAlign: 'center', color: 'var(--text-3)' }}>
-                No suspect nodes found in Supabase. Ingest FIRs or seed the database.
+                No suspect nodes found in registry. Ingest FIRs or seed the database.
               </div>
             ) : (
               sorted.map((k, i) => {
@@ -244,7 +249,7 @@ Provide:
 
             <div className="divider" />
 
-            {/* Gemini Strategy Disruption Section */}
+            {/* AI Strategy Disruption Section */}
             <div style={{ marginTop: '10px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                 <span className="mono" style={{ fontSize: '10px', fontWeight: 700, color: 'var(--text-3)' }}>
@@ -256,7 +261,7 @@ Provide:
                   disabled={strategyLoading}
                   style={{ fontSize: '10px', padding: '3px 8px' }}
                 >
-                  {strategyLoading ? 'Synthesizing...' : '⚡ Generate Strategy'}
+                  {strategyLoading ? 'Synthesizing...' : <><IconZap size={12} /> Generate Strategy</>}
                 </button>
               </div>
 
@@ -268,11 +273,11 @@ Provide:
             </div>
 
             <div style={{ display: 'flex', gap: '8px', marginTop: '14px' }}>
-              <a href="/dashboard/graph" className="btn btn-primary btn-sm" style={{ flex: 1, justifyContent: 'center' }}>
-                View in Graph →
+              <a href="/dashboard/graph" className="btn btn-primary btn-sm" style={{ flex: 1, justifyContent: 'center', textDecoration: 'none' }}>
+                <IconNetwork size={14} /> View in Graph
               </a>
-              <a href="/dashboard/chat" className="btn btn-outline btn-sm" style={{ flex: 1, justifyContent: 'center' }}>
-                Query Copilot
+              <a href="/dashboard/chat" className="btn btn-outline btn-sm" style={{ flex: 1, justifyContent: 'center', textDecoration: 'none' }}>
+                <IconChat size={14} /> Query Copilot
               </a>
             </div>
           </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { IconFileText, IconZap, IconCpu, IconCrown, IconCheck, IconScale, IconShieldCheck } from './common/Icons.jsx'
 import './HowItWorks.css'
 
 const STEPS_DATA = [
@@ -154,7 +155,9 @@ export default function HowItWorks() {
                     {currentStep.previewContent.items.map((item, i) => (
                       <div key={i} className="ingest-file-item">
                         <div className="file-left">
-                          <span className="file-icon">📄</span>
+                          <span className="file-icon" style={{ display: 'flex', alignItems: 'center' }}>
+                            <IconFileText size={16} color="var(--accent-purple-light)" />
+                          </span>
                           <div>
                             <div className="file-name">{item.name}</div>
                             <div className="file-size font-mono">{item.size}</div>
@@ -167,8 +170,8 @@ export default function HowItWorks() {
                       </div>
                     ))}
                   </div>
-                  <div className="stage-footer-note font-mono">
-                    ⚡ Zero manual entry — Direct multi-table entity ingestion
+                  <div className="stage-footer-note font-mono" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <IconZap size={13} color="var(--accent-cyan)" /> Zero manual entry — Direct multi-table entity ingestion
                   </div>
                 </div>
               )}
@@ -190,8 +193,8 @@ export default function HowItWorks() {
                       </div>
                     ))}
                   </div>
-                  <div className="stage-footer-note font-mono">
-                    🧠 18 Entities identified &amp; cross-referenced against CDR logs
+                  <div className="stage-footer-note font-mono" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <IconCpu size={13} color="var(--accent-purple-light)" /> 18 Entities identified &amp; cross-referenced against CDR logs
                   </div>
                 </div>
               )}
@@ -203,7 +206,9 @@ export default function HowItWorks() {
                   </div>
                   <div className="kingpin-podium-card">
                     <div className="podium-header">
-                      <span className="podium-crown">👑</span>
+                      <span className="podium-crown" style={{ display: 'flex', alignItems: 'center' }}>
+                        <IconCrown size={18} color="#fbbf24" />
+                      </span>
                       <div>
                         <div className="podium-title">ISOLATED APEX MASTERMIND</div>
                         <div className="podium-name font-display">{currentStep.previewContent.kingpin.name}</div>
@@ -219,12 +224,12 @@ export default function HowItWorks() {
                         <div className="p-lbl">Orchestrated Links</div>
                       </div>
                     </div>
-                    <div className="podium-verdict font-mono">
-                      ✓ {currentStep.previewContent.kingpin.verdict}
+                    <div className="podium-verdict font-mono" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <IconCheck size={12} color="#34d399" /> {currentStep.previewContent.kingpin.verdict}
                     </div>
                   </div>
-                  <div className="stage-footer-note font-mono">
-                    ⚖️ {currentStep.previewContent.audit}
+                  <div className="stage-footer-note font-mono" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <IconScale size={13} color="#fbbf24" /> {currentStep.previewContent.audit}
                   </div>
                 </div>
               )}
@@ -243,12 +248,12 @@ export default function HowItWorks() {
                       <div className="hash-label font-mono">CRYPTOGRAPHIC CHECKSUM (SHA-256):</div>
                       <div className="hash-text font-mono">{currentStep.previewContent.hash}</div>
                     </div>
-                    <div className="dossier-stamp font-mono">
-                      ✓ {currentStep.previewContent.admissibility}
+                    <div className="dossier-stamp font-mono" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <IconCheck size={12} color="#34d399" /> {currentStep.previewContent.admissibility}
                     </div>
                   </div>
-                  <div className="stage-footer-note font-mono">
-                    🛡️ Tamper-evident cryptographic ledger for High Court submissions
+                  <div className="stage-footer-note font-mono" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <IconShieldCheck size={13} color="#34d399" /> Tamper-evident cryptographic ledger for High Court submissions
                   </div>
                 </div>
               )}

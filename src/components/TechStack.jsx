@@ -1,13 +1,14 @@
 import React from 'react'
+import { IconCpu, IconNetwork, IconZap, IconActivity, IconFileText, IconScale, IconSearch, IconMic, IconVolume2, IconDatabase } from './common/Icons.jsx'
 import './TechStack.css'
 
 const stack = [
   {
     layer: 'Frontend UI',
     items: [
-      { name: 'React.js / Next.js', desc: 'Enterprise investigation dashboard UI', icon: '⚛' },
-      { name: 'Cytoscape.js', desc: 'Interactive graph topology & digital red thread board', icon: '🕸' },
-      { name: 'Vite 8', desc: 'High-performance optimized build pipeline', icon: '⚡' },
+      { name: 'TwinAI Command Console UI', desc: 'Enterprise investigation dashboard UI', icon: <IconCpu size={18} color="var(--accent-cyan, #06b6d4)" /> },
+      { name: 'Cytoscape.js Graph Engine', desc: 'Interactive graph topology & digital red thread board', icon: <IconNetwork size={18} color="var(--accent-cyan, #06b6d4)" /> },
+      { name: 'Realtime Pipeline Engine', desc: 'High-performance optimized build pipeline', icon: <IconZap size={18} color="var(--accent-cyan, #06b6d4)" /> },
     ],
     color: 'var(--accent-cyan, #06b6d4)',
     status: 'BUILT',
@@ -15,19 +16,19 @@ const stack = [
   {
     layer: 'Backend & Compute',
     items: [
-      { name: 'Node.js', desc: 'Event-driven asynchronous microservices', icon: '🟢' },
-      { name: 'Netlify Serverless', desc: 'Serverless functions for PDF & CDR ingestion', icon: '⚡' },
-      { name: 'Fast-CSV & PDF Parser', desc: 'Multi-state data cleansing & tokenization', icon: '📄' },
+      { name: 'Asynchronous Microservices', desc: 'Event-driven high-throughput processing', icon: <IconActivity size={18} color="var(--accent-yellow, #eab308)" /> },
+      { name: 'Serverless Compute Nodes', desc: 'Secure functions for PDF & CDR ingestion', icon: <IconZap size={18} color="var(--accent-yellow, #eab308)" /> },
+      { name: 'Fast-CSV & PDF Parser', desc: 'Multi-state data cleansing & tokenization', icon: <IconFileText size={18} color="var(--accent-yellow, #eab308)" /> },
     ],
     color: 'var(--accent-yellow, #eab308)',
     status: 'READY',
   },
   {
-    layer: 'AI Brain / LLM',
+    layer: 'AI Brain & Dual Agents',
     items: [
-      { name: 'Gemini 1.5 Flash API', desc: 'Zero-temp (0.0) JSON entity extraction', icon: '🧠' },
-      { name: 'TwinAI Consensus Protocol', desc: 'Dual-agent adversarial verification engine', icon: '⚖' },
-      { name: 'Custom SpaCy NLP', desc: 'Fine-tuned Indian FIR & IPC legal terminology', icon: '🔍' },
+      { name: 'TwinAI Cognitive NLP Core', desc: 'Zero-temp (0.0) JSON entity extraction', icon: <IconCpu size={18} color="var(--accent-green, #22c55e)" /> },
+      { name: 'TwinAI Consensus Protocol', desc: 'Dual-agent adversarial verification engine', icon: <IconScale size={18} color="var(--accent-green, #22c55e)" /> },
+      { name: 'Criminal Entity Resolution NLP', desc: 'Fine-tuned Indian FIR & statutory legal terminology', icon: <IconSearch size={18} color="var(--accent-green, #22c55e)" /> },
     ],
     color: 'var(--accent-green, #22c55e)',
     status: 'CONFIGURED',
@@ -35,9 +36,9 @@ const stack = [
   {
     layer: 'Voice Processing',
     items: [
-      { name: 'Sarvam AI (saaras:v2)', desc: 'Speech-to-Text for Tamil, Hindi, Marathi, Tanglish', icon: '🎙️' },
-      { name: 'Sarvam AI (bulbul:v1)', desc: 'Natural regional audio briefing generator', icon: '🔊' },
-      { name: 'Web Speech API', desc: 'Client-side zero-cost browser fallback', icon: '🌐' },
+      { name: 'Indic Speech-to-Text Engine', desc: 'Speech-to-Text for Tamil, Hindi, Marathi, Tanglish', icon: <IconMic size={18} color="var(--accent-purple-light, #a855f7)" /> },
+      { name: 'Regional Audio Briefing Generator', desc: 'Natural regional audio briefing generator', icon: <IconVolume2 size={18} color="var(--accent-purple-light, #a855f7)" /> },
+      { name: 'Client-Side Audio Engine', desc: 'Client-side zero-cost browser fallback', icon: <IconActivity size={18} color="var(--accent-purple-light, #a855f7)" /> },
     ],
     color: 'var(--accent-purple-light, #a855f7)',
     status: 'INTEGRATED',
@@ -45,9 +46,9 @@ const stack = [
   {
     layer: 'Database & Graph',
     items: [
-      { name: 'Neo4j Graph DB', desc: 'Centrality scoring, PageRank & syndicate clusters', icon: '🕸' },
-      { name: 'Supabase (PostgreSQL)', desc: 'Encrypted case dossiers, auth & audit logging', icon: '💾' },
-      { name: 'Cypher Query Engine', desc: 'Multi-hop relationship traversal in <2ms', icon: '⚡' },
+      { name: 'High-Throughput Graph Engine', desc: 'Centrality scoring, PageRank & syndicate clusters', icon: <IconNetwork size={18} color="var(--accent-cyan, #0ea5e9)" /> },
+      { name: 'TwinAI Secure Relational Ledger', desc: 'Encrypted case dossiers, auth & audit logging', icon: <IconDatabase size={18} color="var(--accent-cyan, #0ea5e9)" /> },
+      { name: 'Cypher Query Engine', desc: 'Multi-hop relationship traversal in <2ms', icon: <IconZap size={18} color="var(--accent-cyan, #0ea5e9)" /> },
     ],
     color: 'var(--accent-cyan, #0ea5e9)',
     status: 'READY',

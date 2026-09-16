@@ -1,11 +1,12 @@
 import React from 'react'
+import { IconSearch, IconCpu, IconShieldCheck } from './common/Icons.jsx'
 import './TargetUsers.css'
 
 const users = [
   {
     role: 'Investigating Officers',
     tag: 'IO',
-    icon: '🔎',
+    icon: <IconSearch size={22} color="var(--accent-purple-light)" />,
     color: 'var(--accent-purple-light)',
     desc: 'Need quick summaries and visual connection maps of suspects to accelerate case resolution.',
     needs: ['Quick suspect summaries', 'Visual relationship maps', 'Evidence chain export', 'Chat-based querying'],
@@ -13,7 +14,7 @@ const users = [
   {
     role: 'Intelligence Analysts',
     tag: 'IA',
-    icon: '🧠',
+    icon: <IconCpu size={22} color="var(--accent-cyan)" />,
     color: 'var(--accent-cyan)',
     desc: 'Need deep-dive tools to upload raw data and query hidden patterns across large datasets.',
     needs: ['Bulk data ingestion', 'Pattern query builder', 'Cross-dataset analysis', 'Custom graph filters'],
@@ -21,7 +22,7 @@ const users = [
   {
     role: 'Higher Officials',
     tag: 'HO',
-    icon: '👔',
+    icon: <IconShieldCheck size={22} color="var(--accent-yellow)" />,
     color: 'var(--accent-yellow)',
     desc: 'Need high-level dashboards to monitor active criminal syndicates and measure investigative progress.',
     needs: ['Executive dashboard', 'Syndicate overview', 'Case status tracking', 'Resource allocation view'],

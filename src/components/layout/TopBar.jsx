@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { fetchAlerts } from '../../services/supabase.js'
+import { IconSearch, IconBell, IconClose } from '../common/Icons.jsx'
 import './TopBar.css'
 
 const pageTitles = {
-  '/dashboard':          { title: 'Command Center', sub: 'National Crime Overview & Intelligence Feed' },
-  '/dashboard/graph':    { title: 'Network Topology', sub: 'Interactive Digital Red-Thread Graph DB' },
-  '/dashboard/suspects': { title: 'Suspect Directory', sub: 'Central Database & Criminal Registry' },
-  '/dashboard/cases':    { title: 'Active Case Files', sub: 'Investigation Dossiers & BNS Linkages' },
-  '/dashboard/upload':   { title: 'Evidence Vault', sub: 'FIR, CDR & Bank Ingestion Studio' },
-  '/dashboard/chat':     { title: 'AI Copilot', sub: 'Conversational Intelligence & Statutory Search' },
-  '/dashboard/kingpins': { title: 'Kingpin Studio', sub: 'Centrality & Syndicate Mastermind Detection' },
+  '/dashboard':          { title: 'Intelligence Overview', sub: 'National crime grid & active syndicate detection' },
+  '/dashboard/graph':    { title: 'Network Topology', sub: 'Interactive digital red-thread knowledge graph' },
+  '/dashboard/suspects': { title: 'Suspect Directory', sub: 'Central database & criminal registry' },
+  '/dashboard/cases':    { title: 'Active Case Dossiers', sub: 'Investigation files & statutory charge sheets' },
+  '/dashboard/upload':   { title: 'Evidence Vault', sub: 'FIR, CDR & bank statement ingestion studio' },
+  '/dashboard/chat':     { title: 'AI Copilot', sub: 'Conversational intelligence & legal inquiry copilot' },
+  '/dashboard/kingpins': { title: 'Kingpin Studio', sub: 'Centrality & syndicate mastermind analysis' },
 }
 
 const TopBar = () => {
@@ -19,6 +20,7 @@ const TopBar = () => {
   const [time, setTime] = useState('')
   const [showAlerts, setShowAlerts] = useState(false)
   const [alertsList, setAlertsList] = useState([])
+  const [timeRange, setTimeRange] = useState('This Month')
 
   useEffect(() => {
     async function loadAlerts() {
@@ -42,40 +44,66 @@ const TopBar = () => {
       <div className="topbar-left">
         <div>
           <h1 className="topbar-title">{page.title}</h1>
-          <p className="topbar-sub mono">{page.sub}</p>
+          <p className="topbar-sub">{page.sub}</p>
+        </div>
+      </div>
+
+      {/* Center / Right Controls (Panze & HereSafe Style) */}
+      <div className="topbar-center">
+        <div className="pill-toggle-group">
+          {['Today', 'This Week', 'This Month', 'Reports'].map(r => (
+            <button
+              key={r}
+              className={`pill-toggle-btn ${timeRange === r ? 'active' : ''}`}
+              onClick={() => setTimeRange(r)}
+            >
+              {r}
+            </button>
+          ))}
         </div>
       </div>
 
       <div className="topbar-right">
-        {/* Time */}
-        <div className="topbar-time mono">
-          <span className="pulse-dot pulse-green" />
-          {time} IST
-        </div>
-
         {/* Search */}
         <div className="topbar-search">
-          <span className="search-icon">🔍</span>
-          <input className="input search-input" placeholder="Search suspects, cases..." />
+          <span className="search-icon">
+            <IconSearch size={14} color="var(--text-3)" />
+          </span>
+          <input className="search-input" placeholder="Search suspects, FIRs, UTRs..." />
           <span className="mono search-kbd">⌘K</span>
         </div>
 
-        {/* Alerts bell */}
+        {/* Live Clock Pill */}
+        <div className="topbar-time-pill mono">
+          <span className="pulse-dot pulse-green" />
+          <span>{time} IST</span>
+        </div>
+
+        {/* Alerts Bell */}
         <div className="alert-btn-wrap">
-          <button className="topbar-icon-btn" onClick={() => setShowAlerts(p => !p)}>
-            <span>🔔</span>
+          <button
+            className={`topbar-icon-btn ${showAlerts ? 'active' : ''}`}
+            onClick={() => setShowAlerts(p => !p)}
+            title="System Alerts"
+          >
+            <IconBell size={16} color="var(--text-2)" />
             {unread > 0 && <span className="alert-badge">{unread}</span>}
           </button>
 
           {showAlerts && (
             <div className="alerts-dropdown animate-slideup">
               <div className="alerts-header">
-                <span className="mono" style={{ fontSize: '10px', color: 'var(--text-3)', letterSpacing: '0.1em' }}>ALERTS</span>
-                <span className="mono" style={{ fontSize: '10px', color: 'var(--purple-l)' }}>{unread} unread</span>
+                <div>
+                  <span className="alerts-heading">Live Threat Alerts</span>
+                  <p className="alerts-sub mono">{unread} unread incidents</p>
+                </div>
+                <button className="alerts-clear-btn" onClick={() => setShowAlerts(false)}>
+                  <IconClose size={12} />
+                </button>
               </div>
               <div className="alerts-list">
                 {alertsList.length === 0 ? (
-                  <div style={{ padding: '12px', fontSize: '11px', color: 'var(--text-3)', textAlign: 'center' }}>
+                  <div style={{ padding: '16px', fontSize: '12px', color: 'var(--text-3)', textAlign: 'center' }}>
                     No active threat alerts
                   </div>
                 ) : (
@@ -94,12 +122,10 @@ const TopBar = () => {
             </div>
           )}
         </div>
-
-        {/* Settings */}
-        <button className="topbar-icon-btn">⚙</button>
       </div>
     </header>
   )
 }
 
 export default TopBar
+

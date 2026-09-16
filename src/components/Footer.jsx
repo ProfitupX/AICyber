@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { IconScale } from './common/Icons.jsx'
 import './Footer.css'
 
 export default function Footer() {
@@ -19,8 +20,8 @@ export default function Footer() {
             <p className="footer-brand-desc">
               National AI-Powered Criminal Network &amp; Syndicate Analysis System. Engineered for Law Enforcement, Intelligence Wings, and Cyber Defense Command.
             </p>
-            <div className="footer-badge-item font-mono">
-              ⚖️ BNS 2023 &amp; BSA Sec 65B Compliant
+            <div className="footer-badge-item font-mono" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+              <IconScale size={14} color="#34d399" /> BNS 2023 &amp; BSA Sec 65B Compliant
             </div>
           </div>
 
@@ -56,7 +57,7 @@ export default function Footer() {
               <li><span className="footer-muted">CERT-In Air-Gapped Ready</span></li>
               <li><span className="footer-muted">AES-256 &amp; TLS 1.3 Encryption</span></li>
               <li><span className="footer-muted">Zero LLM Training on Data</span></li>
-              <li><span className="footer-muted">Postgres &amp; Supabase RLS</span></li>
+              <li><span className="footer-muted">Encrypted Relational Ledger &amp; RLS</span></li>
             </ul>
           </div>
         </div>

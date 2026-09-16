@@ -122,7 +122,7 @@ CREATE TABLE public.activity_logs (
   detail TEXT,
   officer TEXT DEFAULT 'SI Ramesh Kumar',
   time TEXT,
-  icon TEXT DEFAULT '⚡',
+  icon TEXT DEFAULT 'zap',
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
@@ -212,9 +212,9 @@ INSERT INTO public.alerts (id, type, title, description, time, case_id, read) VA
 
 -- ACTIVITY LOGS SEED
 INSERT INTO public.activity_logs (action, detail, officer, time, icon) VALUES
-('Dual-Agent Consensus Executed', 'Ingested FIR-2024-089 — 8 nodes & 12 edges verified with 98% confidence.', 'TwinAI Agent', '10:30 AM', '🤖'),
-('Kingpin Flagged', 'Prince @ Bhaiya marked with Betweenness Centrality score 96/100.', 'TwinAI Agent', '10:32 AM', '👑'),
-('Sec 65B Dossier Generated', 'Operation Bathinda Syndicate evidence dossier exported for court filing.', 'SI Ramesh Kumar', '11:00 AM', '📄');
+('Dual-Agent Consensus Executed', 'Ingested FIR-2024-089 — 8 nodes & 12 edges verified with 98% confidence.', 'TwinAI Agent', '10:30 AM', 'cpu'),
+('Kingpin Flagged', 'Prince @ Bhaiya marked with Betweenness Centrality score 96/100.', 'TwinAI Agent', '10:32 AM', 'crown'),
+('Sec 65B Dossier Generated', 'Operation Bathinda Syndicate evidence dossier exported for court filing.', 'SI Ramesh Kumar', '11:00 AM', 'file-text');
 `
 
 // ============================================================

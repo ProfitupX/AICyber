@@ -1,6 +1,18 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import { fetchSuspects, saveSuspect } from '../services/supabase.js'
 import { callGemini } from '../services/gemini.js'
+import { 
+  IconSearch, 
+  IconUser, 
+  IconBuilding, 
+  IconPhone, 
+  IconCpu, 
+  IconClose, 
+  IconShieldCheck, 
+  IconPlus,
+  IconArrowRight,
+  IconSparkles
+} from '../components/common/Icons.jsx'
 import './Suspects.css'
 
 const RISK_COLOR = { CRITICAL: 'var(--red-l)', HIGH: 'var(--orange)', MEDIUM: 'var(--yellow-l)', LOW: 'var(--green-l)' }
@@ -120,7 +132,9 @@ Provide:
       <div className="suspects-controls card">
         <div className="controls-left">
           <div className="search-wrap">
-            <span className="search-icon2">🔍</span>
+            <span className="search-icon2">
+              <IconSearch size={14} color="var(--text-3)" />
+            </span>
             <input
               className="input"
               placeholder="Search name, alias, location..."
@@ -141,7 +155,9 @@ Provide:
         </div>
         <div className="controls-right">
           <span className="mono" style={{ fontSize: '11px', color: 'var(--text-3)' }}>{filtered.length} entities</span>
-          <button className="btn btn-primary btn-sm" onClick={() => setShowAddModal(true)}>+ Add Entity</button>
+          <button className="btn btn-primary btn-sm" onClick={() => setShowAddModal(true)}>
+            <IconPlus size={13} /> Add Entity
+          </button>
         </div>
       </div>
 
@@ -171,13 +187,18 @@ Provide:
                     onClick={() => { setSelectedId(s.id); setAiAuditReport(null); }}
                   >
                     <td>
-                      <div className="suspect-name-cell">
-                        <div className="suspect-avatar-sm" style={{ background: `var(--${s.type.toLowerCase() === 'person' ? 'purple-l' : s.type.toLowerCase() === 'organization' ? 'cyan-l' : 'green-l'})` }}>
-                          {s.type === 'PERSON' ? '👤' : s.type === 'ORGANIZATION' ? '🏢' : '📱'}
+                      <div className="suspect-name-cell" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <div className="suspect-avatar-sm" style={{ 
+                          width: '28px', height: '28px', borderRadius: '50%',
+                          background: s.type === 'PERSON' ? '#eef2ff' : s.type === 'ORGANIZATION' ? '#f0f9ff' : '#ecfdf5',
+                          color: s.type === 'PERSON' ? '#6366f1' : s.type === 'ORGANIZATION' ? '#0ea5e9' : '#10b981',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center'
+                        }}>
+                          {s.type === 'PERSON' ? <IconUser size={13} /> : s.type === 'ORGANIZATION' ? <IconBuilding size={13} /> : <IconPhone size={13} />}
                         </div>
                         <div>
-                          <div className="s-name">{s.name}</div>
-                          {s.alias && <div className="mono s-alias">"{s.alias}"</div>}
+                          <div className="s-name" style={{ fontWeight: 600 }}>{s.name}</div>
+                          {s.alias && <div className="mono s-alias" style={{ fontSize: '10px', color: 'var(--text-3)' }}>"{s.alias}"</div>}
                         </div>
                       </div>
                     </td>
@@ -185,7 +206,7 @@ Provide:
                       <span className={`badge badge-${s.type.toLowerCase()}`}>{s.type}</span>
                     </td>
                     <td>
-                      <span className="risk-indicator" style={{ color: RISK_COLOR[s.risk] || '#888' }}>
+                      <span className="risk-indicator" style={{ color: RISK_COLOR[s.risk] || '#888', fontWeight: 600, fontSize: '11px' }}>
                         ● {s.risk}
                       </span>
                     </td>
@@ -225,9 +246,9 @@ Provide:
                           setSelectedId(s.id)
                           runAiAudit(s)
                         }}
-                        style={{ fontSize: '10px', padding: '2px 6px' }}
+                        style={{ fontSize: '10px', padding: '4px 8px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
                       >
-                        🧠 AI Audit
+                        <IconCpu size={12} /> Audit
                       </button>
                     </td>
                   </tr>
@@ -239,14 +260,16 @@ Provide:
 
         {/* Selected suspect drawer */}
         {selected && (
-          <div className="suspect-drawer card animate-slideup">
-            <div className="drawer-header">
+          <div className="suspect-drawer card animate-slideup" style={{ padding: '20px', width: '340px' }}>
+            <div className="drawer-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <div>
                 <span className="mono" style={{ fontSize: '9px', color: 'var(--text-4)' }}>{selected.id}</span>
-                <h3 className="drawer-title">{selected.name}</h3>
-                {selected.alias && <div className="mono" style={{ fontSize: '11px', color: 'var(--purple-l)' }}>alias "{selected.alias}"</div>}
+                <h3 className="drawer-title" style={{ fontSize: '16px', fontWeight: 700, marginTop: '2px' }}>{selected.name}</h3>
+                {selected.alias && <div className="mono" style={{ fontSize: '11px', color: 'var(--purple-d)' }}>alias "{selected.alias}"</div>}
               </div>
-              <button className="btn btn-ghost btn-sm btn-icon" onClick={() => setSelectedId(null)}>✕</button>
+              <button className="btn btn-ghost btn-sm btn-icon" onClick={() => setSelectedId(null)}>
+                <IconClose size={12} />
+              </button>
             </div>
 
             <div style={{ display: 'flex', gap: '6px', margin: '12px 0' }}>
@@ -281,20 +304,20 @@ Provide:
                   className="btn btn-primary btn-sm"
                   onClick={() => runAiAudit(selected)}
                   disabled={aiAuditLoading}
-                  style={{ fontSize: '10px', padding: '2px 8px' }}
+                  style={{ fontSize: '10px', padding: '4px 10px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
                 >
-                  {aiAuditLoading ? 'Analyzing...' : 'Run Gemini Audit ↗'}
+                  <IconSparkles size={11} /> {aiAuditLoading ? 'Auditing...' : 'Run Audit'}
                 </button>
               </div>
 
               {aiAuditLoading && (
-                <div style={{ padding: '12px', textAlign: 'center', fontSize: '11px', color: 'var(--purple-l)' }}>
-                  Gemini Flash auditing suspect profile & BNS legal framework...
+                <div style={{ padding: '12px', textAlign: 'center', fontSize: '11px', color: 'var(--purple-d)' }}>
+                  TwinAI Neural Core auditing suspect profile & BNS legal framework...
                 </div>
               )}
 
               {aiAuditReport && (
-                <div style={{ background: 'var(--bg-card-2)', padding: '10px', borderRadius: '6px', fontSize: '11px', maxHeight: '200px', overflowY: 'auto', whiteSpace: 'pre-wrap', lineHeight: 1.5 }}>
+                <div style={{ background: '#f8fafc', border: '1px solid var(--border)', padding: '12px', borderRadius: '8px', fontSize: '11px', maxHeight: '200px', overflowY: 'auto', whiteSpace: 'pre-wrap', lineHeight: 1.5, color: 'var(--text-1)' }}>
                   {aiAuditReport}
                 </div>
               )}
@@ -302,10 +325,10 @@ Provide:
 
             <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
               <a href="/dashboard/graph" className="btn btn-primary btn-sm" style={{ flex: 1, justifyContent: 'center' }}>
-                Open on Graph →
+                Open on Graph <IconArrowRight size={12} />
               </a>
-              <a href="/dashboard/chat" className="btn btn-outline btn-sm" style={{ flex: 1, justifyContent: 'center' }}>
-                Query in Copilot
+              <a href="/dashboard/chat" className="btn btn-ghost btn-sm" style={{ flex: 1, justifyContent: 'center' }}>
+                Query Copilot
               </a>
             </div>
           </div>
@@ -314,39 +337,44 @@ Provide:
 
       {/* Add Entity Modal */}
       {showAddModal && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div className="card animate-fadein" style={{ width: '420px', background: 'var(--bg-card)' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-              <h3 style={{ fontSize: '14px', fontWeight: 700, margin: 0 }}>Add New Intelligence Entity</h3>
-              <button className="btn btn-ghost btn-sm btn-icon" onClick={() => setShowAddModal(false)}>✕</button>
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(4px)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="card animate-fadein" style={{ width: '440px', background: '#ffffff', padding: '24px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <h3 style={{ fontSize: '15px', fontWeight: 700, margin: 0 }}>Add New Intelligence Entity</h3>
+              <button className="btn btn-ghost btn-sm btn-icon" onClick={() => setShowAddModal(false)}>
+                <IconClose size={12} />
+              </button>
             </div>
-            <form onSubmit={handleAddSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <form onSubmit={handleAddSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div>
-                <label className="mono" style={{ fontSize: '10px', color: 'var(--text-3)' }}>FULL NAME</label>
+                <label className="mono" style={{ fontSize: '10px', color: 'var(--text-3)', fontWeight: 600 }}>FULL NAME</label>
                 <input
                   className="input"
                   required
                   placeholder="e.g. Jaspreet Singh"
                   value={newSuspect.name}
                   onChange={e => setNewSuspect({ ...newSuspect, name: e.target.value })}
+                  style={{ width: '100%', marginTop: '4px' }}
                 />
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                 <div>
-                  <label className="mono" style={{ fontSize: '10px', color: 'var(--text-3)' }}>ALIAS</label>
+                  <label className="mono" style={{ fontSize: '10px', color: 'var(--text-3)', fontWeight: 600 }}>ALIAS</label>
                   <input
                     className="input"
                     placeholder="e.g. Jassa"
                     value={newSuspect.alias}
                     onChange={e => setNewSuspect({ ...newSuspect, alias: e.target.value })}
+                    style={{ width: '100%', marginTop: '4px' }}
                   />
                 </div>
                 <div>
-                  <label className="mono" style={{ fontSize: '10px', color: 'var(--text-3)' }}>TYPE</label>
+                  <label className="mono" style={{ fontSize: '10px', color: 'var(--text-3)', fontWeight: 600 }}>TYPE</label>
                   <select
                     className="input select"
                     value={newSuspect.type}
                     onChange={e => setNewSuspect({ ...newSuspect, type: e.target.value })}
+                    style={{ width: '100%', marginTop: '4px' }}
                   >
                     <option value="PERSON">PERSON</option>
                     <option value="ORGANIZATION">ORGANIZATION</option>
@@ -354,13 +382,14 @@ Provide:
                   </select>
                 </div>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                 <div>
-                  <label className="mono" style={{ fontSize: '10px', color: 'var(--text-3)' }}>RISK LEVEL</label>
+                  <label className="mono" style={{ fontSize: '10px', color: 'var(--text-3)', fontWeight: 600 }}>RISK LEVEL</label>
                   <select
                     className="input select"
                     value={newSuspect.risk}
                     onChange={e => setNewSuspect({ ...newSuspect, risk: e.target.value })}
+                    style={{ width: '100%', marginTop: '4px' }}
                   >
                     <option value="CRITICAL">CRITICAL</option>
                     <option value="HIGH">HIGH</option>
@@ -369,7 +398,7 @@ Provide:
                   </select>
                 </div>
                 <div>
-                  <label className="mono" style={{ fontSize: '10px', color: 'var(--text-3)' }}>RISK SCORE (1-100)</label>
+                  <label className="mono" style={{ fontSize: '10px', color: 'var(--text-3)', fontWeight: 600 }}>RISK SCORE (1-100)</label>
                   <input
                     className="input"
                     type="number"
@@ -377,31 +406,34 @@ Provide:
                     max="100"
                     value={newSuspect.riskScore}
                     onChange={e => setNewSuspect({ ...newSuspect, riskScore: Number(e.target.value) })}
+                    style={{ width: '100%', marginTop: '4px' }}
                   />
                 </div>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                 <div>
-                  <label className="mono" style={{ fontSize: '10px', color: 'var(--text-3)' }}>PHONE</label>
+                  <label className="mono" style={{ fontSize: '10px', color: 'var(--text-3)', fontWeight: 600 }}>PHONE</label>
                   <input
                     className="input"
                     placeholder="+91-98765-43210"
                     value={newSuspect.phone}
                     onChange={e => setNewSuspect({ ...newSuspect, phone: e.target.value })}
+                    style={{ width: '100%', marginTop: '4px' }}
                   />
                 </div>
                 <div>
-                  <label className="mono" style={{ fontSize: '10px', color: 'var(--text-3)' }}>LOCATION</label>
+                  <label className="mono" style={{ fontSize: '10px', color: 'var(--text-3)', fontWeight: 600 }}>LOCATION</label>
                   <input
                     className="input"
                     placeholder="e.g. Bathinda, PB"
                     value={newSuspect.location}
                     onChange={e => setNewSuspect({ ...newSuspect, location: e.target.value })}
+                    style={{ width: '100%', marginTop: '4px' }}
                   />
                 </div>
               </div>
-              <button type="submit" className="btn btn-primary" style={{ marginTop: '8px', justifyContent: 'center' }}>
-                Save to Supabase Database 💾
+              <button type="submit" className="btn btn-primary" style={{ marginTop: '8px', justifyContent: 'center', width: '100%' }}>
+                <IconShieldCheck size={14} /> Save Target Record
               </button>
             </form>
           </div>
@@ -410,3 +442,4 @@ Provide:
     </div>
   )
 }
+

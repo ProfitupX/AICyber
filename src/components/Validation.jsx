@@ -1,4 +1,5 @@
 import React from 'react'
+import { IconAlertTriangle, IconClock, IconNetwork } from './common/Icons.jsx'
 import './Validation.css'
 
 export default function Validation() {
@@ -23,21 +24,21 @@ export default function Validation() {
           
           <div className="case-grid">
             <div className="case-box problem-box">
-              <div className="cb-icon">⚠️</div>
+              <div className="cb-icon"><IconAlertTriangle size={24} color="var(--accent-red, #ef4444)" /></div>
               <h4 className="cb-title">The Problem</h4>
               <p className="cb-desc">3 separate murders, 12 suspects, spread across 6 states.</p>
             </div>
             
             <div className="case-box gap-box">
-              <div className="cb-icon">⏳</div>
+              <div className="cb-icon"><IconClock size={24} color="var(--accent-yellow, #f59e0b)" /></div>
               <h4 className="cb-title">The Gap</h4>
               <p className="cb-desc">Manual tracking by agencies took weeks to connect the dots across jurisdictions.</p>
             </div>
 
             <div className="case-box solution-box">
-              <div className="cb-icon">🕸️</div>
+              <div className="cb-icon"><IconNetwork size={24} color="var(--accent-cyan, #06b6d4)" /></div>
               <h4 className="cb-title">Our Solution</h4>
-              <p className="cb-desc"><strong>Neo4j</strong> instantly maps multi-state overlapping suspects (like Prince alias Bhaiya) into a single visual network.</p>
+              <p className="cb-desc"><strong>Knowledge Graph</strong> instantly maps multi-state overlapping suspects (like Prince alias Bhaiya) into a single visual network.</p>
             </div>
           </div>
         </div>
@@ -54,11 +55,11 @@ export default function Validation() {
                 <div className="tech-desc">Academic research applied for zero-hallucination data verification before adding to the graph.</div>
               </div>
               <div className="tech-item">
-                <div className="tech-name mono">NEO4J GRAPH ALGORITHMS</div>
+                <div className="tech-name mono">CENTRALITY GRAPH ALGORITHMS</div>
                 <div className="tech-desc">Centrality Scoring used to auto-detect hidden kingpins and critical communication nodes.</div>
               </div>
               <div className="tech-item">
-                <div className="tech-name mono">CUSTOM SPACY NLP</div>
+                <div className="tech-name mono">STATUTORY LEGAL NLP</div>
                 <div className="tech-desc">Fine-tuned specifically for extracting entities from unstructured Indian legal and FIR jargon.</div>
               </div>
             </div>

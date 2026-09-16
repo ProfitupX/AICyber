@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react'
+import { IconUpload, IconCpu, IconScale, IconNetwork, IconMic, IconSun, IconMoon, IconCopy, IconCheck, IconActivity } from './common/Icons.jsx'
 import './SolutionFlowchart.css'
 
 export default function SolutionFlowchart() {
@@ -41,7 +42,7 @@ export default function SolutionFlowchart() {
       num: '01',
       title: 'Multi-Source Ingestion & Normalization',
       subtitle: 'Node.js Serverless Microservices',
-      icon: '📥',
+      icon: <IconUpload size={22} color="#0284c7" />,
       badge: 'LAYER 1: DATA INGESTION',
       tech: 'Node.js · Netlify Serverless · Pdf-Parse · Fast-CSV',
       desc: 'Ingests structured and unstructured law enforcement data including FIR PDFs, Call Detail Record (CDR) CSVs, Bank Statement Excel files, and Telegram/WhatsApp OSINT dumps.',
@@ -54,11 +55,11 @@ export default function SolutionFlowchart() {
     {
       num: '02',
       title: 'Automated Entity Extraction (NER)',
-      subtitle: 'Gemini 1.5 Flash (JSON Mode)',
-      icon: '🧠',
+      subtitle: 'TwinAI Cognitive NLP Engine (JSON Mode)',
+      icon: <IconCpu size={22} color="#0284c7" />,
       badge: 'LAYER 2: ENTITY EXTRACTION',
-      tech: 'Gemini 1.5 Flash API (Temp 0.0) · SpaCy NLP Model',
-      desc: 'Gemini 1.5 Flash configured with zero temperature (0.0) and strict JSON Schema output extracts domain-specific entities from unstructured Indian police/FIR jargon.',
+      tech: 'TwinAI Cognitive NLP Core (Temp 0.0) · Legal Resolution Model',
+      desc: 'TwinAI Cognitive NLP Engine configured with zero temperature (0.0) and strict JSON Schema output extracts domain-specific entities from unstructured Indian police/FIR jargon.',
       bullets: [
         'Entities: People, Aliases, Locations, Vehicles, Phone Numbers (IMEI/IMSI), Bank Mules',
         'Confidence scoring (0-100%) mapped to each candidate node',
@@ -69,7 +70,7 @@ export default function SolutionFlowchart() {
       num: '03',
       title: 'TwinAI Consensus Protocol (Zero Hallucination)',
       subtitle: 'Dual-Agent Adversarial Debate',
-      icon: '⚖️',
+      icon: <IconScale size={22} color="#0d9488" />,
       badge: 'LAYER 3: CONSENSUS ENGINE',
       tech: 'TwinAI Framework · LangChain · Rule-based Auditor',
       desc: 'Extractor Agent (Detective) analyzes candidate relationships while Validation Agent (Ethics/Auditor) challenges unverified links and protects innocent third parties.',
@@ -82,11 +83,11 @@ export default function SolutionFlowchart() {
     {
       num: '04',
       title: 'Knowledge Graph & Centrality Analytics',
-      subtitle: 'Neo4j & Supabase Graph Engine',
-      icon: '🕸️',
+      subtitle: 'Neural Knowledge Graph Engine',
+      icon: <IconNetwork size={22} color="#059669" />,
       badge: 'LAYER 4: GRAPH DATABASE',
-      tech: 'Neo4j Graph DB · Supabase PostgreSQL · Cypher Query Engine',
-      desc: 'Persists verified criminal networks into Neo4j graph schemas. Automatically executes graph algorithms to uncover hidden syndicate hierarchies.',
+      tech: 'High-Throughput Graph DB · Secure Cloud Ledger · Centrality Engine',
+      desc: 'Persists verified criminal networks into graph schemas. Automatically executes graph algorithms to uncover hidden syndicate hierarchies.',
       bullets: [
         'PageRank: Computes overall authority and structural network importance',
         'Betweenness Centrality: Pinpoints kingpins, brokers, and money laundering conduits',
@@ -96,15 +97,15 @@ export default function SolutionFlowchart() {
     {
       num: '05',
       title: 'Voice-Driven Regional Interface & Dashboard',
-      subtitle: 'Sarvam AI Speech Engine & React UI',
-      icon: '🎙️',
+      subtitle: 'Regional Neural Speech & React UI',
+      icon: <IconMic size={22} color="#7c3aed" />,
       badge: 'LAYER 5: VOICE & DASHBOARD',
-      tech: 'Sarvam AI (saaras:v2 / bulbul:v1) · Cytoscape.js · React.js',
+      tech: 'Regional Speech Models · Network Topology Engine · React.js',
       desc: 'Empowers field officers with regional voice queries (Tamil, Hindi, Telugu, Tanglish) and an interactive digital "Red Thread" investigation board.',
       bullets: [
-        'Speech-to-Text via Sarvam AI saaras:v2 with Web Speech API zero-cost fallback',
-        'Field officer audio briefings generated with Sarvam AI bulbul:v1 TTS',
-        'Real-time Cytoscape.js topology map with 1-click legal evidence dossier export'
+        'Speech-to-Text with Web Speech API zero-cost fallback',
+        'Field officer audio briefings generated with regional voice synthesis',
+        'Real-time interactive topology map with 1-click legal evidence dossier export'
       ]
     }
   ]
@@ -224,19 +225,19 @@ export default function SolutionFlowchart() {
                 className={`slide-tab-btn ${activeSlide === 'workflow' ? 'active' : ''}`}
                 onClick={() => setActiveSlide('workflow')}
               >
-                📊 1. End-to-End Workflow
+                1. End-to-End Workflow
               </button>
               <button 
                 className={`slide-tab-btn ${activeSlide === 'architecture' ? 'active' : ''}`}
                 onClick={() => setActiveSlide('architecture')}
               >
-                🏛️ 2. Core 5-Layer Stack
+                2. Core 5-Layer Stack
               </button>
               <button 
                 className={`slide-tab-btn ${activeSlide === 'consensus' ? 'active' : ''}`}
                 onClick={() => setActiveSlide('consensus')}
               >
-                ⚖️ 3. TwinAI Protocol
+                3. TwinAI Protocol
               </button>
             </div>
 
@@ -247,14 +248,14 @@ export default function SolutionFlowchart() {
                 onClick={() => setThemeMode('light')}
                 title="White theme (Ideal for PowerPoint Slides)"
               >
-                ☀️ Slide White
+                <IconSun size={13} style={{ marginRight: 4 }} /> Slide White
               </button>
               <button 
                 className={`theme-btn ${themeMode === 'dark' ? 'active' : ''}`}
                 onClick={() => setThemeMode('dark')}
                 title="Dark theme (Ideal for Keynote & Screens)"
               >
-                🌙 Cyber Dark
+                <IconMoon size={13} style={{ marginRight: 4 }} /> Cyber Dark
               </button>
             </div>
 
@@ -392,36 +393,36 @@ export default function SolutionFlowchart() {
 
                   <g transform="translate(14, 54)">
                     <rect width="70" height="72" rx="6" fill={isDark ? '#132036' : '#ffffff'} stroke={c.border} strokeWidth="1" />
-                    <text x="35" y="32" textAnchor="middle" fontSize="22">📄</text>
+                    <text x="35" y="30" textAnchor="middle" fill="#0284c7" fontSize="13" fontWeight="900">FIR</text>
                     <text x="35" y="52" textAnchor="middle" fill={c.textMain} fontSize="11" fontWeight="700">FIRs</text>
                     <text x="35" y="64" textAnchor="middle" fill={c.textMuted} fontSize="8">Police Reports</text>
                   </g>
                   <g transform="translate(96, 54)">
                     <rect width="70" height="72" rx="6" fill={isDark ? '#132036' : '#ffffff'} stroke={c.border} strokeWidth="1" />
-                    <text x="35" y="32" textAnchor="middle" fontSize="22">📞</text>
+                    <text x="35" y="30" textAnchor="middle" fill="#0284c7" fontSize="13" fontWeight="900">CDR</text>
                     <text x="35" y="52" textAnchor="middle" fill={c.textMain} fontSize="11" fontWeight="700">CDRs</text>
                     <text x="35" y="64" textAnchor="middle" fill={c.textMuted} fontSize="8">Call Records</text>
                   </g>
                   <g transform="translate(14, 138)">
                     <rect width="70" height="76" rx="6" fill={isDark ? '#132036' : '#ffffff'} stroke={c.border} strokeWidth="1" />
-                    <text x="35" y="32" textAnchor="middle" fontSize="22">🏛️</text>
+                    <text x="35" y="30" textAnchor="middle" fill="#0284c7" fontSize="13" fontWeight="900">BNK</text>
                     <text x="35" y="52" textAnchor="middle" fill={c.textMain} fontSize="10" fontWeight="700">BANK</text>
                     <text x="35" y="66" textAnchor="middle" fill={c.textMuted} fontSize="8">Transactions</text>
                   </g>
                   <g transform="translate(96, 138)">
                     <rect width="70" height="76" rx="6" fill={isDark ? '#132036' : '#ffffff'} stroke={c.border} strokeWidth="1" />
-                    <text x="35" y="32" textAnchor="middle" fontSize="22">💬</text>
+                    <text x="35" y="30" textAnchor="middle" fill="#0284c7" fontSize="13" fontWeight="900">OSI</text>
                     <text x="35" y="52" textAnchor="middle" fill={c.textMain} fontSize="10" fontWeight="700">SOCIAL</text>
                     <text x="35" y="66" textAnchor="middle" fill={c.textMuted} fontSize="8">OSINT Comms</text>
                   </g>
                 </g>
 
-                {/* 3. NER (Gemini 1.5 Flash) */}
+                {/* 3. NER (Cognitive NLP) */}
                 <g transform="translate(342, 102)" filter="url(#card-shadow)">
                   <rect width="184" height="206" rx="10" fill={c.bgCard} stroke={c.border} strokeWidth="1.5" />
                   <path d="M 0 10 Q 0 0 10 0 L 174 0 Q 184 0 184 10 L 184 46 L 0 46 Z" fill="#02457a" />
                   <text x="92" y="20" textAnchor="middle" fill="#ffffff" fontSize="11" fontWeight="800">AUTOMATED NER</text>
-                  <text x="92" y="36" textAnchor="middle" fill="#38bdf8" fontSize="10" fontWeight="700">GEMINI 1.5 FLASH (JSON)</text>
+                  <text x="92" y="36" textAnchor="middle" fill="#38bdf8" fontSize="10" fontWeight="700">COGNITIVE NLP</text>
 
                   <g transform="translate(16, 62)">
                     <circle cx="6" cy="10" r="4" fill="#0284c7" />
@@ -448,7 +449,7 @@ export default function SolutionFlowchart() {
                   {/* Detective */}
                   <g transform="translate(20, 36)">
                     <circle cx="34" cy="40" r="26" fill="url(#agentDetective)" />
-                    <text x="34" y="46" textAnchor="middle" fontSize="24">🤖</text>
+                    <text x="34" y="45" textAnchor="middle" fill="#ffffff" fontSize="12" fontWeight="800">A1</text>
                     <text x="34" y="80" textAnchor="middle" fill={c.textMain} fontSize="10" fontWeight="800">EXTRACTOR</text>
                     <text x="34" y="93" textAnchor="middle" fill="#0284c7" fontSize="9" fontWeight="700">AGENT (DETECTIVE)</text>
 
@@ -473,7 +474,7 @@ export default function SolutionFlowchart() {
 
                     <g transform="translate(320, 0)">
                       <circle cx="34" cy="36" r="26" fill="url(#agentValidator)" />
-                      <text x="34" y="42" textAnchor="middle" fontSize="24">⚖️</text>
+                      <text x="34" y="41" textAnchor="middle" fill="#ffffff" fontSize="12" fontWeight="800">A2</text>
                       <text x="34" y="74" textAnchor="middle" fill={c.textMain} fontSize="10" fontWeight="800">VALIDATION</text>
                       <text x="34" y="87" textAnchor="middle" fill="#0d9488" fontSize="9" fontWeight="700">AGENT (ETHICS/AUDIT)</text>
                     </g>
@@ -481,7 +482,7 @@ export default function SolutionFlowchart() {
 
                   <rect x="50" y="218" width="300" height="24" rx="12" fill={isDark ? '#083344' : '#ecfeff'} stroke="#06b6d4" strokeWidth="1" />
                   <text x="200" y="234" textAnchor="middle" fill={isDark ? '#67e8f9' : '#0e7490'} fontSize="10" fontWeight="700">
-                    ⚡ Zero Hallucination Protocol · Mutual Consensus Gate
+                    Zero Hallucination Protocol · Mutual Consensus Gate
                   </text>
                 </g>
 
@@ -509,7 +510,7 @@ export default function SolutionFlowchart() {
                 <g transform="translate(1146, 230)" filter="url(#card-shadow)">
                   <rect width="194" height="96" rx="10" fill="#003b46" stroke="#00a86b" strokeWidth="2" />
                   <text x="97" y="24" textAnchor="middle" fill="#ffffff" fontSize="11" fontWeight="800">BUILD DYNAMIC</text>
-                  <text x="97" y="40" textAnchor="middle" fill="#6ee7b7" fontSize="11" fontWeight="800">NEO4J GRAPH</text>
+                  <text x="97" y="40" textAnchor="middle" fill="#6ee7b7" fontSize="11" fontWeight="800">KNOWLEDGE GRAPH</text>
 
                   <g transform="translate(97, 66)">
                     <line x1="-30" y1="6" x2="0" y2="-12" stroke="#a7f3d0" strokeWidth="1.5" />
@@ -551,7 +552,7 @@ export default function SolutionFlowchart() {
                   <text x="110" y="62" textAnchor="middle" fill="#fca5a5" fontSize="9" fontWeight="600">(FLAGS SUSPICIOUS BEHAVIORS)</text>
                 </g>
 
-                {/* 7. SARVAM AI VOICE ASSISTANT */}
+                {/* 7. REGIONAL VOICE ASSISTANT */}
                 <g transform="translate(642, 510)">
                   <circle cx="55" cy="55" r="48" fill={isDark ? '#083344' : '#e0f7fa'} stroke={c.teal} strokeWidth="2.5" filter="url(#card-shadow)" />
                   <circle cx="55" cy="55" r="38" fill="url(#agentDetective)" />
@@ -565,8 +566,8 @@ export default function SolutionFlowchart() {
                     <path d="M 25 9 C 28 12 28 16 25 19" fill="none" stroke="#7dd3fc" strokeWidth="1.8" />
                   </g>
 
-                  <text x="55" y="118" textAnchor="middle" fill={c.textMain} fontSize="11" fontWeight="800">SARVAM AI VOICE</text>
-                  <text x="55" y="132" textAnchor="middle" fill={c.textMain} fontSize="10" fontWeight="700">COPILOT (saaras:v2)</text>
+                  <text x="55" y="118" textAnchor="middle" fill={c.textMain} fontSize="11" fontWeight="800">REGIONAL VOICE</text>
+                  <text x="55" y="132" textAnchor="middle" fill={c.textMain} fontSize="10" fontWeight="700">SPEECH COPILOT</text>
                   <text x="55" y="145" textAnchor="middle" fill={c.textMuted} fontSize="8" fontWeight="600">Tamil, Hindi, Marathi, Tanglish</text>
                 </g>
 
@@ -652,22 +653,22 @@ export default function SolutionFlowchart() {
                   {/* Modules */}
                   <g transform="translate(240, 16)">
                     <rect width="240" height="68" rx="6" fill={isDark ? '#162842' : '#ffffff'} stroke={c.border} strokeWidth="1" />
-                    <text x="120" y="28" textAnchor="middle" fill={c.textMain} fontSize="12" fontWeight="700">📄 FIR Documents</text>
+                    <text x="120" y="28" textAnchor="middle" fill={c.textMain} fontSize="12" fontWeight="700">FIR Documents</text>
                     <text x="120" y="48" textAnchor="middle" fill={c.textMuted} fontSize="10">Unstructured Police Case PDFs</text>
                   </g>
                   <g transform="translate(500, 16)">
                     <rect width="240" height="68" rx="6" fill={isDark ? '#162842' : '#ffffff'} stroke={c.border} strokeWidth="1" />
-                    <text x="120" y="28" textAnchor="middle" fill={c.textMain} fontSize="12" fontWeight="700">📞 CDR Logs</text>
+                    <text x="120" y="28" textAnchor="middle" fill={c.textMain} fontSize="12" fontWeight="700">CDR Logs</text>
                     <text x="120" y="48" textAnchor="middle" fill={c.textMuted} fontSize="10">Tower Cells, IMEI, Call Frequency</text>
                   </g>
                   <g transform="translate(760, 16)">
                     <rect width="240" height="68" rx="6" fill={isDark ? '#162842' : '#ffffff'} stroke={c.border} strokeWidth="1" />
-                    <text x="120" y="28" textAnchor="middle" fill={c.textMain} fontSize="12" fontWeight="700">🏛️ Bank Statements</text>
+                    <text x="120" y="28" textAnchor="middle" fill={c.textMain} fontSize="12" fontWeight="700">Bank Statements</text>
                     <text x="120" y="48" textAnchor="middle" fill={c.textMuted} fontSize="10">Excel / CSV Transaction Ledgers</text>
                   </g>
                   <g transform="translate(1020, 16)">
                     <rect width="270" height="68" rx="6" fill={isDark ? '#162842' : '#ffffff'} stroke={c.border} strokeWidth="1" />
-                    <text x="135" y="28" textAnchor="middle" fill={c.textMain} fontSize="12" fontWeight="700">⚡ Node.js Serverless Microservices</text>
+                    <text x="135" y="28" textAnchor="middle" fill={c.textMain} fontSize="12" fontWeight="700">Node.js Serverless Microservices</text>
                     <text x="135" y="48" textAnchor="middle" fill={c.textMuted} fontSize="10">Netlify Functions Event-Driven Stream</text>
                   </g>
                 </g>
@@ -684,7 +685,7 @@ export default function SolutionFlowchart() {
 
                   <g transform="translate(240, 16)">
                     <rect width="320" height="68" rx="6" fill={isDark ? '#163554' : '#ffffff'} stroke={c.border} strokeWidth="1" />
-                    <text x="160" y="28" textAnchor="middle" fill="#0284c7" fontSize="12" fontWeight="800">Gemini 1.5 Flash API (Temp 0.0)</text>
+                    <text x="160" y="28" textAnchor="middle" fill="#0284c7" fontSize="12" fontWeight="800">TwinAI Cognitive NLP Engine (Temp 0.0)</text>
                     <text x="160" y="48" textAnchor="middle" fill={c.textMuted} fontSize="10">Strict JSON Mode · Zero Deterministic Variance</text>
                   </g>
                   <g transform="translate(580, 16)">
@@ -712,7 +713,7 @@ export default function SolutionFlowchart() {
                   {/* Detective vs Advocate */}
                   <g transform="translate(240, 16)">
                     <rect width="320" height="78" rx="6" fill={isDark ? '#1e3848' : '#ffffff'} stroke="#38bdf8" strokeWidth="1.5" />
-                    <text x="160" y="28" textAnchor="middle" fill="#0284c7" fontSize="12" fontWeight="800">🤖 Extractor Agent (Detective)</text>
+                    <text x="160" y="28" textAnchor="middle" fill="#0284c7" fontSize="12" fontWeight="800">Extractor Agent (Detective)</text>
                     <text x="160" y="48" textAnchor="middle" fill={c.textMain} fontSize="10">Proposes Candidate Nodes &amp; Edges</text>
                     <text x="160" y="64" textAnchor="middle" fill={c.textMuted} fontSize="9">Links call frequencies &amp; FIR co-accused</text>
                   </g>
@@ -720,12 +721,12 @@ export default function SolutionFlowchart() {
                   <g transform="translate(580, 30)">
                     <rect width="140" height="50" rx="25" fill="#0f766e" />
                     <text x="70" y="24" textAnchor="middle" fill="#ffffff" fontSize="10" fontWeight="800">DEBATE &amp; AUDIT</text>
-                    <text x="70" y="38" textAnchor="middle" fill="#a7f3d0" fontSize="9" fontWeight="700">⚡ Consensus Gate</text>
+                    <text x="70" y="38" textAnchor="middle" fill="#a7f3d0" fontSize="9" fontWeight="700">Consensus Gate</text>
                   </g>
 
                   <g transform="translate(740, 16)">
                     <rect width="320" height="78" rx="6" fill={isDark ? '#1e3848' : '#ffffff'} stroke="#14b8a6" strokeWidth="1.5" />
-                    <text x="160" y="28" textAnchor="middle" fill="#0d9488" fontSize="12" fontWeight="800">⚖️ Validation Agent (Ethics/Audit)</text>
+                    <text x="160" y="28" textAnchor="middle" fill="#0d9488" fontSize="12" fontWeight="800">Validation Agent (Ethics/Audit)</text>
                     <text x="160" y="48" textAnchor="middle" fill={c.textMain} fontSize="10">Cross-audits Evidence &amp; Financial Proof</text>
                     <text x="160" y="64" textAnchor="middle" fill={c.textMuted} fontSize="9">Protects innocent third parties &amp; families</text>
                   </g>
@@ -750,12 +751,12 @@ export default function SolutionFlowchart() {
 
                   <g transform="translate(240, 16)">
                     <rect width="320" height="68" rx="6" fill={isDark ? '#143838' : '#ffffff'} stroke={c.border} strokeWidth="1" />
-                    <text x="160" y="28" textAnchor="middle" fill="#10b981" fontSize="12" fontWeight="800">Neo4j Graph Database</text>
-                    <text x="160" y="48" textAnchor="middle" fill={c.textMuted} fontSize="10">Weighted Relationship Edges &amp; Cypher Engine</text>
+                    <text x="160" y="28" textAnchor="middle" fill="#10b981" fontSize="12" fontWeight="800">Knowledge Graph Database</text>
+                    <text x="160" y="48" textAnchor="middle" fill={c.textMuted} fontSize="10">Weighted Relationship Edges &amp; Graph Traversal</text>
                   </g>
                   <g transform="translate(580, 16)">
                     <rect width="340" height="68" rx="6" fill={isDark ? '#143838' : '#ffffff'} stroke={c.border} strokeWidth="1" />
-                    <text x="170" y="28" textAnchor="middle" fill="#0ea5e9" fontSize="12" fontWeight="800">Supabase (PostgreSQL)</text>
+                    <text x="170" y="28" textAnchor="middle" fill="#0ea5e9" fontSize="12" fontWeight="800">PostgreSQL Cloud Ledger</text>
                     <text x="170" y="48" textAnchor="middle" fill={c.textMuted} fontSize="10">Encrypted Case Storage, Auth &amp; Audit Logs</text>
                   </g>
                   <g transform="translate(940, 16)">
@@ -777,12 +778,12 @@ export default function SolutionFlowchart() {
 
                   <g transform="translate(240, 16)">
                     <rect width="320" height="68" rx="6" fill={isDark ? '#232048' : '#ffffff'} stroke={c.border} strokeWidth="1" />
-                    <text x="160" y="28" textAnchor="middle" fill="#8b5cf6" fontSize="12" fontWeight="800">Sarvam AI (saaras:v2 STT)</text>
+                    <text x="160" y="28" textAnchor="middle" fill="#8b5cf6" fontSize="12" fontWeight="800">Regional Speech Engine (STT)</text>
                     <text x="160" y="48" textAnchor="middle" fill={c.textMuted} fontSize="10">Tamil, Hindi, Marathi &amp; Tanglish Speech Input</text>
                   </g>
                   <g transform="translate(580, 16)">
                     <rect width="340" height="68" rx="6" fill={isDark ? '#232048' : '#ffffff'} stroke={c.border} strokeWidth="1" />
-                    <text x="170" y="28" textAnchor="middle" fill="#8b5cf6" fontSize="12" fontWeight="800">Sarvam AI (bulbul:v1 TTS)</text>
+                    <text x="170" y="28" textAnchor="middle" fill="#8b5cf6" fontSize="12" fontWeight="800">Audio Briefing Synthesizer (TTS)</text>
                     <text x="170" y="48" textAnchor="middle" fill={c.textMuted} fontSize="10">Audio Intel Briefs + Web Speech Fallback</text>
                   </g>
                   <g transform="translate(940, 16)">
@@ -814,9 +815,9 @@ export default function SolutionFlowchart() {
 
                   <g transform="translate(30, 80)">
                     <circle cx="36" cy="36" r="30" fill="url(#agentDetective)" />
-                    <text x="36" y="42" textAnchor="middle" fontSize="26">🔍</text>
+                    <text x="36" y="42" textAnchor="middle" fill="#ffffff" fontSize="13" fontWeight="800">DET</text>
                     <text x="80" y="32" fill={c.textMain} fontSize="13" fontWeight="800">Primary Responsibilities</text>
-                    <text x="80" y="48" fill={c.textMuted} fontSize="11">Gemini 1.5 Flash JSON Processing</text>
+                    <text x="80" y="48" fill={c.textMuted} fontSize="11">TwinAI Cognitive NLP Processing</text>
                   </g>
 
                   <g transform="translate(24, 160)">
@@ -842,7 +843,7 @@ export default function SolutionFlowchart() {
 
                   <g transform="translate(24, 420)">
                     <rect width="332" height="120" rx="8" fill={isDark ? '#0c223a' : '#e0f2fe'} stroke="#38bdf8" strokeWidth="1" />
-                    <text x="16" y="24" fill="#0369a1" fontSize="11" fontWeight="800">⚡ Draft Output Proposition</text>
+                    <text x="16" y="24" fill="#0369a1" fontSize="11" fontWeight="800">Draft Output Proposition</text>
                     <text x="16" y="44" fill={c.textMain} fontSize="10" fontFamily="monospace">"Flagged Rajan K. ↔ Burner PH001</text>
                     <text x="16" y="60" fill={c.textMain} fontSize="10" fontFamily="monospace">with 47 calls in 48h prior to</text>
                     <text x="16" y="76" fill={c.textMain} fontSize="10" fontFamily="monospace">FIR-2024-008 incident."</text>
@@ -891,14 +892,14 @@ export default function SolutionFlowchart() {
 
                     <g transform="translate(0, 204)">
                       <rect width="400" height="64" rx="6" fill={isDark ? '#06382a' : '#ecfdf5'} stroke="#10b981" strokeWidth="1.5" />
-                      <text x="20" y="26" fill="#10b981" fontSize="11" fontWeight="800">✅ MUTUAL CONSENSUS APPROVED</text>
-                      <text x="20" y="44" fill={c.textMain} fontSize="10">Edge auto-committed to Neo4j Knowledge Graph</text>
+                      <text x="20" y="26" fill="#10b981" fontSize="11" fontWeight="800">[APPROVED] MUTUAL CONSENSUS</text>
+                      <text x="20" y="44" fill={c.textMain} fontSize="10">Edge auto-committed to Knowledge Graph</text>
                       <text x="20" y="56" fill={c.textMuted} fontSize="9">Confidence: 94.7% · Certified for Court Dossier</text>
                     </g>
 
                     <g transform="translate(0, 278)">
                       <rect width="400" height="64" rx="6" fill={isDark ? '#3d161a' : '#fef2f2'} stroke="#ef4444" strokeWidth="1.5" />
-                      <text x="20" y="26" fill="#ef4444" fontSize="11" fontWeight="800">⚠️ DISCREPANCY / LOW CONFIDENCE</text>
+                      <text x="20" y="26" fill="#ef4444" fontSize="11" fontWeight="800">[REVIEW] DISCREPANCY DETECTED</text>
                       <text x="20" y="44" fill={c.textMain} fontSize="10">Edge paused ➔ Escalated to Human Officer Audit</text>
                       <text x="20" y="56" fill={c.textMuted} fontSize="9">Zero automatic false convictions</text>
                     </g>
@@ -914,7 +915,7 @@ export default function SolutionFlowchart() {
 
                   <g transform="translate(30, 80)">
                     <circle cx="36" cy="36" r="30" fill="url(#agentValidator)" />
-                    <text x="36" y="42" textAnchor="middle" fontSize="26">⚖️</text>
+                    <text x="36" y="42" textAnchor="middle" fill="#ffffff" fontSize="13" fontWeight="800">AUD</text>
                     <text x="80" y="32" fill={c.textMain} fontSize="13" fontWeight="800">Audit Capabilities</text>
                     <text x="80" y="48" fill={c.textMuted} fontSize="11">Hallucination &amp; Loophole Checker</text>
                   </g>
@@ -936,13 +937,13 @@ export default function SolutionFlowchart() {
                   <g transform="translate(24, 330)">
                     <rect width="332" height="70" rx="8" fill={isDark ? '#142e2c' : '#f0fdfa'} stroke={c.border} strokeWidth="1" />
                     <text x="16" y="24" fill="#0d9488" fontSize="11" fontWeight="800">3. Immutable Audit Logging</text>
-                    <text x="16" y="42" fill={c.textMain} fontSize="10">Records the entire debate trajectory in Supabase</text>
+                    <text x="16" y="42" fill={c.textMain} fontSize="10">Records the entire debate trajectory in secure ledger</text>
                     <text x="16" y="56" fill={c.textMuted} fontSize="9">so every node is 100% explainable in court.</text>
                   </g>
 
                   <g transform="translate(24, 420)">
                     <rect width="332" height="120" rx="8" fill={isDark ? '#06382a' : '#e6fffa'} stroke="#2dd4bf" strokeWidth="1" />
-                    <text x="16" y="24" fill="#0f766e" fontSize="11" fontWeight="800">⚡ Audit Cross-Check Output</text>
+                    <text x="16" y="24" fill="#0f766e" fontSize="11" fontWeight="800">Audit Cross-Check Output</text>
                     <text x="16" y="44" fill={c.textMain} fontSize="10" fontFamily="monospace">"Verified: 47 calls corroborated</text>
                     <text x="16" y="60" fill={c.textMain} fontSize="10" fontFamily="monospace">by ₹1.2Cr HDFC ledger TXN001</text>
                     <text x="16" y="76" fill={c.textMain} fontSize="10" fontFamily="monospace">&amp; 2 co-suspect FIR statements."</text>
@@ -958,7 +959,7 @@ export default function SolutionFlowchart() {
 
             <g transform="translate(36, 782)">
               <circle cx="16" cy="18" r="16" fill={isDark ? '#1e293b' : '#f1f5f9'} stroke="#f59e0b" strokeWidth="1.5" />
-              <text x="16" y="23" textAnchor="middle" fontSize="15">🏛️</text>
+              <text x="16" y="22" textAnchor="middle" fill="#f59e0b" fontSize="10" fontWeight="900">MHA</text>
               <text x="40" y="16" fill={c.textMain} fontSize="11" fontWeight="800" letterSpacing="0.5">
                 MINISTRY OF HOME AFFAIRS (MHA)
               </text>
@@ -1103,7 +1104,7 @@ export default function SolutionFlowchart() {
                     <div className="layer-badge mono">AI Brain / LLM</div>
                   </td>
                   <td>
-                    <strong className="tech-title-text">Gemini 1.5 Flash API</strong>
+                    <strong className="tech-title-text">TwinAI Cognitive NLP Engine</strong>
                   </td>
                   <td>Zero-temperature (0.0) JSON entity extraction, TwinAI multi-agent consensus logic</td>
                   <td><span className="status-badge status-live">● CONFIGURED</span></td>
@@ -1113,7 +1114,7 @@ export default function SolutionFlowchart() {
                     <div className="layer-badge mono">Voice Processing</div>
                   </td>
                   <td>
-                    <strong className="tech-title-text">Sarvam AI (saaras:v2 / bulbul:v1) + Web Speech API</strong>
+                    <strong className="tech-title-text">Regional Speech Synthesizer &amp; Web Speech API</strong>
                   </td>
                   <td>Regional Indian language speech-to-text (Tamil, Hindi, Marathi, Tanglish) and audio briefing TTS</td>
                   <td><span className="status-badge status-live">● INTEGRATED</span></td>
@@ -1123,7 +1124,7 @@ export default function SolutionFlowchart() {
                     <div className="layer-badge mono">Database Layer</div>
                   </td>
                   <td>
-                    <strong className="tech-title-text">Supabase (PostgreSQL) / Neo4j Graph DB</strong>
+                    <strong className="tech-title-text">PostgreSQL Secure Ledger &amp; Knowledge Graph DB</strong>
                   </td>
                   <td>Encrypted case storage, indexed relationship mapping, PageRank &amp; Betweenness Centrality</td>
                   <td><span className="status-badge status-live">● READY</span></td>

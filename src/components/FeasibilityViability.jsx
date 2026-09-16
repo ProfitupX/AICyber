@@ -87,13 +87,9 @@ export default function FeasibilityViability() {
       setDownloading(true)
       const svgEl = svgRef.current
       const svgData = new XMLSerializer().serializeToString(svgEl)
-      const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' })
-      const URLObj = window.URL || window.webkitURL || window
-      const blobURL = URLObj.createObjectURL(svgBlob)
 
-      const img = new Image()
-      img.onload = async () => {
-        const scale = 2.0
+    return new Promise((resolve) => {
+      img.onload = () => {
         const canvas = document.createElement('canvas')
         canvas.width = 1440 * scale
         canvas.height = 840 * scale
@@ -101,67 +97,120 @@ export default function FeasibilityViability() {
         ctx.fillStyle = c.bg
         ctx.fillRect(0, 0, canvas.width, canvas.height)
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-        URLObj.revokeObjectURL(blobURL)
-
-        canvas.toBlob(async (blob) => {
-          if (blob && navigator.clipboard && window.ClipboardItem) {
-            await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })])
-            setCopied(true)
-            setTimeout(() => setCopied(false), 2500)
-          } else {
-            handleDownloadPNG()
-          }
-          setDownloading(false)
-        }, 'image/png', 1.0)
+        URL.revokeObjectURL(blobURL)
+        resolve(canvas)
       }
-      img.src = blobURL
-    } catch (err) {
-      console.error('Clipboard copy failed:', err)
-      handleDownloadPNG()
+    })
+  }
+
+  // Instant Copy to Clipboard (for pasting straight into PPT/Word)
+  const handleCopyToClipboard = async () => {
+    setDownloading(true)
+    try {
+      const canvas = await generateCanvasImage(2.0)
+      if (!canvas) return
+
+      canvas.toBlob(async (blob) => {
+        if (!blob) return
+        try {
+          await navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': blob })
+          ])
+          setCopied(true)
+          setTimeout(() => setCopied(false), 2500)
+        } catch (err) {
+          console.warn('Clipboard write failed, downloading instead:', err)
+          handleDownloadPNG()
+        } finally {
+          setDownloading(false)
+        }
+      }, 'image/png')
+    } catch (e) {
+      console.error(e)
       setDownloading(false)
     }
+  }
+
+  // 4K PNG Download
+  const handleDownloadPNG = async () => {
+    setDownloading(true)
+    const canvas = await generateCanvasImage(2.666) // Yields exact 3840 x 2240 4K
+    if (!canvas) {
+      setDownloading(false)
+      return
+    }
+    const a = document.createElement('a')
+    a.download = `TwinAI_Feasibility_Slide_${activeTab}_${themeMode}_4K.png`
+    a.href = canvas.toDataURL('image/png')
+    a.click()
+    setDownloading(false)
+  }
+
+  // Vector SVG Download
+  const handleDownloadSVG = () => {
+    const svgEl = svgRef.current
+    if (!svgEl) return
+    const svgData = new XMLSerializer().serializeToString(svgEl)
+    const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.download = `TwinAI_Vector_Slide_${activeTab}_${themeMode}.svg`
+    a.href = url
+    a.click()
+    URL.revokeObjectURL(url)
   }
 
   return (
     <section className="feasibility-section" id="feasibility">
       <div className="feasibility-container">
         
-        {/* Header Toolbar */}
-        <div className="feasibility-toolbar">
-          <div className="toolbar-left">
-            <div className="badge-sih mono">SIH26189 // FEASIBILITY & VIABILITY ANALYSIS</div>
-            <h2 className="toolbar-title">Feasibility, Viability &amp; Operational Impact</h2>
-            <p className="toolbar-subtitle">
-              Comprehensive technical, legal, financial, and deployment viability assessment tailored for the Ministry of Home Affairs (MHA) &amp; NCRB.
-            </p>
+        {/* Section Header */}
+        <div className="feasibility-header">
+          <div className="feasibility-badge font-mono">
+            // SIH26189 OFFICIAL PRESENTATION DECK ASSET
           </div>
+          <h2 className="feasibility-title font-display">
+            Feasibility &amp; Viability <span className="bento-star">✦</span> Jury Presentation Master.
+          </h2>
+          <p className="feasibility-subtitle">
+            Engineered specifically for Smart India Hackathon Grand Finale &amp; MHA Technical Evaluation. Export in pristine 4K PNG or Vector SVG for direct PPT insertion.
+          </p>
+        </div>
 
-          <div className="toolbar-actions">
+        {/* Presentation Controls Bar */}
+        <div className="slide-deck-toolbar glass-card">
+          <div className="toolbar-left">
+            <span className="toolbar-label font-mono">SLIDE VIEW:</span>
+            
             {/* View Switcher */}
             <div className="slide-selector-group">
               <button 
                 className={`slide-tab-btn ${activeTab === 'pillars' ? 'active' : ''}`}
                 onClick={() => setActiveTab('pillars')}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
               >
-                🏛️ 4 Core Pillars
+                <IconBuilding size={14} /> 4 Core Pillars
               </button>
               <button 
                 className={`slide-tab-btn ${activeTab === 'costs' ? 'active' : ''}`}
                 onClick={() => setActiveTab('costs')}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
               >
-                💰 Cost &amp; Efficiency
+                <IconDollarSign size={14} /> Cost &amp; Efficiency
               </button>
               <button 
                 className={`slide-tab-btn ${activeTab === 'risks' ? 'active' : ''}`}
                 onClick={() => setActiveTab('risks')}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
               >
-                🛡️ Risk Mitigation
+                <IconShieldCheck size={14} /> Risk Mitigation
               </button>
               <button 
                 className={`slide-tab-btn ${activeTab === 'comparison' ? 'active' : ''}`}
                 onClick={() => setActiveTab('comparison')}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
               >
-                ⚖️ Benchmark Matrix
+                <IconScale size={14} /> Benchmark Matrix
               </button>
             </div>
 
@@ -171,15 +220,17 @@ export default function FeasibilityViability() {
                 className={`theme-btn ${themeMode === 'light' ? 'active' : ''}`}
                 onClick={() => setThemeMode('light')}
                 title="White theme (Ideal for PowerPoint Slides)"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}
               >
-                ☀️ Slide White
+                <IconSun size={13} /> Slide White
               </button>
               <button 
                 className={`theme-btn ${themeMode === 'dark' ? 'active' : ''}`}
                 onClick={() => setThemeMode('dark')}
                 title="Dark theme (Ideal for Keynote & Screens)"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}
               >
-                🌙 Cyber Dark
+                <IconMoon size={13} /> Cyber Dark
               </button>
             </div>
 
@@ -189,8 +240,7 @@ export default function FeasibilityViability() {
               onClick={handleDownloadSVG}
               title="Download vector SVG"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              SVG
+              <IconUpload size={14} /> SVG
             </button>
 
             <button 
@@ -199,11 +249,14 @@ export default function FeasibilityViability() {
               disabled={downloading}
               title="Copy 4K Image directly to Clipboard for instant Paste in PowerPoint"
             >
-              {copied ? '✓ Copied!' : (
-                <>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                  Copy for PPT
-                </>
+              {copied ? (
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                  <IconCheck size={14} /> Copied!
+                </span>
+              ) : (
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                  <IconCopy size={14} /> Copy for PPT
+                </span>
               )}
             </button>
 
@@ -275,7 +328,7 @@ export default function FeasibilityViability() {
               <g transform="translate(18, 156)">
                 <rect width="284" height="88" rx="6" fill={isDark ? '#111d2e' : '#ffffff'} stroke={c.border} strokeWidth="1" />
                 <text x="14" y="24" fill="#0284c7" fontSize="11" fontWeight="800">Deterministic NER Precision</text>
-                <text x="14" y="42" fill={c.textMain} fontSize="10">Gemini 1.5 Flash (Temp 0.0) + SpaCy legal</text>
+                <text x="14" y="42" fill={c.textMain} fontSize="10">TwinAI Cognitive NLP Core + Legal Resolver</text>
                 <text x="14" y="58" fill={c.textMain} fontSize="10">model eliminates random hallucinations</text>
                 <text x="14" y="74" fill={c.textMuted} fontSize="9">and outputs strict validated JSON schemas.</text>
               </g>
@@ -283,7 +336,7 @@ export default function FeasibilityViability() {
               <g transform="translate(18, 258)">
                 <rect width="284" height="88" rx="6" fill={isDark ? '#111d2e' : '#ffffff'} stroke={c.border} strokeWidth="1" />
                 <text x="14" y="24" fill="#0284c7" fontSize="11" fontWeight="800">High-Throughput Graph Engine</text>
-                <text x="14" y="42" fill={c.textMain} fontSize="10">Neo4j Cypher engine traverses 100,000+</text>
+                <text x="14" y="42" fill={c.textMain} fontSize="10">Indexed Graph engine traverses 100,000+</text>
                 <text x="14" y="58" fill={c.textMain} fontSize="10">relationship edges in &lt;2ms, executing</text>
                 <text x="14" y="74" fill={c.textMuted} fontSize="9">PageRank and Betweenness instantly.</text>
               </g>
@@ -299,11 +352,11 @@ export default function FeasibilityViability() {
               <g transform="translate(18, 462)">
                 <rect width="284" height="175" rx="8" fill={isDark ? '#08253a' : '#e0f2fe'} stroke="#0284c7" strokeWidth="1.5" />
                 <text x="16" y="24" fill="#0284c7" fontSize="11" fontWeight="800">Key Technology Verified:</text>
-                <text x="16" y="46" fill={c.textMain} fontSize="10">• Gemini 1.5 Flash (JSON Mode)</text>
-                <text x="16" y="66" fill={c.textMain} fontSize="10">• Neo4j Graph DB &amp; Cypher</text>
-                <text x="16" y="86" fill={c.textMain} fontSize="10">• Supabase PostgreSQL Layer</text>
-                <text x="16" y="106" fill={c.textMain} fontSize="10">• Sarvam AI Regional Voice SDK</text>
-                <text x="16" y="126" fill={c.textMain} fontSize="10">• React.js &amp; Cytoscape.js Board</text>
+                <text x="16" y="46" fill={c.textMain} fontSize="10">• TwinAI Cognitive NLP Engine (JSON Mode)</text>
+                <text x="16" y="66" fill={c.textMain} fontSize="10">• TwinAI High-Throughput Graph Engine</text>
+                <text x="16" y="86" fill={c.textMain} fontSize="10">• TwinAI Secure Relational Ledger</text>
+                <text x="16" y="106" fill={c.textMain} fontSize="10">• Indic Speech-to-Text Voice Engine</text>
+                <text x="16" y="126" fill={c.textMain} fontSize="10">• TwinAI Command Dashboard</text>
                 <text x="16" y="152" fill="#10b981" fontSize="10" fontWeight="700">✓ 100% Production Ready APIs</text>
               </g>
             </g>
@@ -350,7 +403,7 @@ export default function FeasibilityViability() {
               <g transform="translate(18, 462)">
                 <rect width="284" height="175" rx="8" fill={isDark ? '#08332a' : '#ecfdf5'} stroke="#0d9488" strokeWidth="1.5" />
                 <text x="16" y="24" fill="#0d9488" fontSize="11" fontWeight="800">Legal Safeguards &amp; Ethics:</text>
-                <text x="16" y="46" fill={c.textMain} fontSize="10">• Immutable Supabase audit log</text>
+                <text x="16" y="46" fill={c.textMain} fontSize="10">• Immutable cryptographic audit log</text>
                 <text x="16" y="66" fill={c.textMain} fontSize="10">• Zero automated false convictions</text>
                 <text x="16" y="86" fill={c.textMain} fontSize="10">• Strict Indian Evidence Act format</text>
                 <text x="16" y="106" fill={c.textMain} fontSize="10">• Multi-Agent adversarial consensus</text>
@@ -376,8 +429,8 @@ export default function FeasibilityViability() {
               {/* Bullets */}
               <g transform="translate(18, 156)">
                 <rect width="284" height="88" rx="6" fill={isDark ? '#111d2e' : '#ffffff'} stroke={c.border} strokeWidth="1" />
-                <text x="14" y="24" fill="#059669" fontSize="11" fontWeight="800">Gemini 1.5 Flash Cost Efficiency</text>
-                <text x="14" y="42" fill={c.textMain} fontSize="10">Flash pricing ($0.075 / 1M tokens) enables</text>
+                <text x="14" y="24" fill="#059669" fontSize="11" fontWeight="800">TwinAI Neural Core Efficiency</text>
+                <text x="14" y="42" fill={c.textMain} fontSize="10">Optimized micro-token pricing enables</text>
                 <text x="14" y="58" fill={c.textMain} fontSize="10">processing massive 100-page casefiles</text>
                 <text x="14" y="74" fill={c.textMuted} fontSize="9">for pennies compared to legacy software.</text>
               </g>
@@ -385,7 +438,7 @@ export default function FeasibilityViability() {
               <g transform="translate(18, 258)">
                 <rect width="284" height="88" rx="6" fill={isDark ? '#111d2e' : '#ffffff'} stroke={c.border} strokeWidth="1" />
                 <text x="14" y="24" fill="#059669" fontSize="11" fontWeight="800">Zero Proprietary License Lock-in</text>
-                <text x="14" y="42" fill={c.textMain} fontSize="10">Built on open-core stack (Neo4j, Node,</text>
+                <text x="14" y="42" fill={c.textMain} fontSize="10">Built on high-performance stack (Graph Engine, Node,</text>
                 <text x="14" y="58" fill={c.textMain} fontSize="10">PostgreSQL, React), eliminating multi-crore</text>
                 <text x="14" y="74" fill={c.textMuted} fontSize="9">proprietary foreign intelligence software fees.</text>
               </g>
@@ -393,7 +446,7 @@ export default function FeasibilityViability() {
               <g transform="translate(18, 360)">
                 <rect width="284" height="88" rx="6" fill={isDark ? '#111d2e' : '#ffffff'} stroke={c.border} strokeWidth="1" />
                 <text x="14" y="24" fill="#059669" fontSize="11" fontWeight="800">Web Speech Fallback</text>
-                <text x="14" y="42" fill={c.textMain} fontSize="10">Sarvam AI is backed by client-side</text>
+                <text x="14" y="42" fill={c.textMain} fontSize="10">Neural Voice is backed by client-side</text>
                 <text x="14" y="58" fill={c.textMain} fontSize="10">Web Speech API, ensuring zero voice</text>
                 <text x="14" y="74" fill={c.textMuted} fontSize="9">cost during high-volume offline usage.</text>
               </g>
@@ -444,7 +497,7 @@ export default function FeasibilityViability() {
               <g transform="translate(18, 360)">
                 <rect width="284" height="88" rx="6" fill={isDark ? '#111d2e' : '#ffffff'} stroke={c.border} strokeWidth="1" />
                 <text x="14" y="24" fill="#8b5cf6" fontSize="11" fontWeight="800">Multilingual Regional Deployment</text>
-                <text x="14" y="42" fill={c.textMain} fontSize="10">Sarvam AI supports local Indian dialects</text>
+                <text x="14" y="42" fill={c.textMain} fontSize="10">Voice Copilot supports local Indian dialects</text>
                 <text x="14" y="58" fill={c.textMain} fontSize="10">(Tamil, Marathi, Hindi, Tanglish) for</text>
                 <text x="14" y="74" fill={c.textMuted} fontSize="9">nationwide police station adoption.</text>
               </g>
@@ -466,7 +519,7 @@ export default function FeasibilityViability() {
 
             <g transform="translate(36, 782)">
               <circle cx="16" cy="18" r="16" fill={isDark ? '#1e293b' : '#f1f5f9'} stroke="#f59e0b" strokeWidth="1.5" />
-              <text x="16" y="23" textAnchor="middle" fontSize="15">🏛️</text>
+              <text x="16" y="22" textAnchor="middle" fill="#f59e0b" fontSize="9" fontWeight="900" fontFamily="JetBrains Mono, monospace">MHA</text>
               <text x="40" y="16" fill={c.textMain} fontSize="11" fontWeight="800" letterSpacing="0.5">
                 MINISTRY OF HOME AFFAIRS (MHA)
               </text>
@@ -561,12 +614,12 @@ export default function FeasibilityViability() {
                   <tr>
                     <td><strong>Multi-State Syndicate Mapping</strong></td>
                     <td className="text-red">Weeks to Months (Manual calls)</td>
-                    <td className="text-green font-bold">&lt; 2 Minutes (Instant Neo4j graph)</td>
+                    <td className="text-green font-bold">&lt; 2 Minutes (Instant Knowledge graph)</td>
                   </tr>
                   <tr>
                     <td><strong>Cost per Casefile Ingestion</strong></td>
                     <td className="text-red">₹15,000+ (Officer man-hours)</td>
-                    <td className="text-green font-bold">&lt; ₹0.75 (Gemini Flash Serverless)</td>
+                    <td className="text-green font-bold">&lt; ₹0.75 (TwinAI Serverless Compute)</td>
                   </tr>
                   <tr>
                     <td><strong>Kingpin Centrality Identification</strong></td>
@@ -576,7 +629,7 @@ export default function FeasibilityViability() {
                   <tr>
                     <td><strong>Language Accessibility</strong></td>
                     <td className="text-red">English / State specific only</td>
-                    <td className="text-green font-bold">Tamil, Hindi, Marathi, Tanglish (Sarvam)</td>
+                    <td className="text-green font-bold">Tamil, Hindi, Marathi, Tanglish (Voice Engine)</td>
                   </tr>
                 </tbody>
               </table>

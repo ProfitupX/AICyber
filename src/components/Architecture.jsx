@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { IconSearch, IconScale, IconZap, IconNetwork, IconActivity, IconCrown, IconFileText } from './common/Icons.jsx'
 import './Architecture.css'
 
 const Architecture = () => {
@@ -12,7 +13,7 @@ const Architecture = () => {
       subtitle: 'Data Parser & Entity Extractor',
       color: '#7c3aed',
       accent: 'var(--accent-purple-light)',
-      icon: '🔍',
+      icon: <IconSearch size={24} color="var(--accent-purple-light)" />,
       desc: 'Parses unstructured data via NLP, extracts entities (Names, Phones, Locations, Transactions), and proposes potential connections between them.',
       tasks: ['NLP Entity Extraction', 'Relationship Proposal', 'Pattern Detection', 'CDR Analysis', 'Financial Linking'],
     },
@@ -23,7 +24,7 @@ const Architecture = () => {
       subtitle: 'Cross-Verifier & Logic Auditor',
       color: '#e8ff00',
       accent: 'var(--accent-yellow)',
-      icon: '⚖️',
+      icon: <IconScale size={24} color="var(--accent-yellow)" />,
       desc: "Cross-verifies Agent 1's claims looking for logical loopholes — e.g., 'Is there financial proof to back up this call record?'",
       tasks: ['Claim Verification', 'Loophole Detection', 'Evidence Validation', 'False Positive Filtering', 'Audit Logging'],
     },
@@ -86,7 +87,9 @@ const Architecture = () => {
             </div>
 
             <div className="consensus-box">
-              <div className="consensus-icon">⚡</div>
+              <div className="consensus-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <IconZap size={20} color="var(--accent-cyan)" />
+              </div>
               <div className="mono" style={{ fontSize: '10px', color: '#555', letterSpacing: '0.1em' }}>CONSENSUS ENGINE</div>
               <div className="consensus-score">
                 <div className="mono" style={{ fontSize: '11px', color: '#888' }}>CONFIDENCE SCORE</div>
@@ -138,13 +141,13 @@ const Architecture = () => {
           </div>
           <div className="arch-outputs">
             {[
-              { label: 'Graph DB', desc: 'Neo4j node + relationship stored with confidence score', icon: '🕸', color: 'var(--accent-purple-light)' },
-              { label: 'Dashboard', desc: 'Visual network map updated in real-time for investigators', icon: '📊', color: 'var(--accent-cyan)' },
-              { label: 'Kingpin Alert', desc: 'Centrality algorithm highlights most influential suspect', icon: '👑', color: 'var(--accent-yellow)' },
-              { label: 'Audit Log', desc: 'Full trace of debate — every decision explainable', icon: '📋', color: 'var(--accent-green)' },
+              { label: 'Knowledge Graph', desc: 'Verified nodes + relationships stored with confidence score', icon: <IconNetwork size={20} color="var(--accent-purple-light)" />, color: 'var(--accent-purple-light)' },
+              { label: 'Dashboard', desc: 'Visual network map updated in real-time for investigators', icon: <IconActivity size={20} color="var(--accent-cyan)" />, color: 'var(--accent-cyan)' },
+              { label: 'Kingpin Alert', desc: 'Centrality algorithm highlights most influential suspect', icon: <IconCrown size={20} color="var(--accent-yellow)" />, color: 'var(--accent-yellow)' },
+              { label: 'Audit Log', desc: 'Full trace of debate — every decision explainable', icon: <IconFileText size={20} color="var(--accent-green)" />, color: 'var(--accent-green)' },
             ].map(o => (
               <div className="arch-output-card" key={o.label}>
-                <span className="arch-output-icon">{o.icon}</span>
+                <span className="arch-output-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{o.icon}</span>
                 <h4 style={{ color: o.color, fontSize: '14px', fontWeight: 600 }}>{o.label}</h4>
                 <p style={{ fontSize: '12px', color: '#666', lineHeight: 1.5 }}>{o.desc}</p>
               </div>

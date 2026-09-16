@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { runTwinAIConsensus } from '../services/gemini.js'
 import { addGraphEntities, saveSuspect, saveEvidenceRecord } from '../services/supabase.js'
+import { IconUpload, IconZap, IconCpu, IconCrown, IconNetwork, IconUsers, IconScale, IconCheckCircle, IconFileText } from '../components/common/Icons.jsx'
 import './Upload.css'
 
 const CASE_TEMPLATES = [
@@ -91,7 +92,7 @@ export default function Upload() {
     setIsProcessing(true)
     setAnalysisResult(null)
     setStageProgress(15)
-    addLog('🚀 Starting TwinAI Dual-Agent Consensus Pipeline...', 'info')
+    addLog('Starting Dual-Agent Consensus Pipeline...', 'info')
 
     try {
       const result = await runTwinAIConsensus(inputText, (p) => {
@@ -105,12 +106,12 @@ export default function Upload() {
 
       setStageProgress(100)
       setAnalysisResult(result)
-      addLog(`✅ Consensus achieved! Score: ${result.consensusScore}% | Verdict: ${result.verdict}`, 'success')
+      addLog(`Consensus achieved: Score ${result.consensusScore}% | Verdict: ${result.verdict}`, 'success')
 
-      // Save to Supabase and Local Graph DB
+      // Save to Knowledge Graph and Network DB
       if (result.nodes?.length > 0 || result.edges?.length > 0) {
         await addGraphEntities(result.nodes, result.edges)
-        addLog(`💾 Pushed ${result.nodes.length} nodes & ${result.edges.length} edges to Supabase / Graph DB`, 'success')
+        addLog(`Pushed ${result.nodes.length} nodes & ${result.edges.length} edges to Knowledge Graph`, 'success')
       }
 
       // Save extracted suspects
@@ -144,7 +145,7 @@ export default function Upload() {
       })
 
     } catch (err) {
-      addLog(`❌ Analysis Error: ${err.message}`, 'error')
+      addLog(`Analysis Error: ${err.message}`, 'error')
     } finally {
       setIsProcessing(false)
     }
@@ -159,7 +160,7 @@ export default function Upload() {
             Evidence Ingestion &amp; TwinAI Dual-Agent Studio
           </h2>
           <p style={{ fontSize: '12px', color: 'var(--text-2)', margin: '4px 0 0 0' }}>
-            Upload raw Indian FIRs, CDR dumps, and Bank CSVs. Real-time Gemini Flash Dual-Agent debate extracts zero-hallucination graph topology.
+            Upload raw Indian FIRs, CDR dumps, and Bank CSVs. Real-time Dual-Agent debate extracts zero-hallucination graph topology.
           </p>
         </div>
         <div style={{ display: 'flex', gap: '8px' }}>
@@ -175,14 +176,18 @@ export default function Upload() {
             onClick={() => fileInputRef.current?.click()}
             disabled={isProcessing}
           >
-            📁 Upload Local Document
+            <IconUpload size={14} /> Upload Local Document
           </button>
           <button 
             className="btn btn-primary" 
             onClick={runLiveAnalysis} 
             disabled={isProcessing || !inputText.trim()}
           >
-            {isProcessing ? '⚡ Agents Debating...' : '🚀 Execute TwinAI Ingestion'}
+            {isProcessing ? (
+              <><IconCpu size={14} /> Agents Debating...</>
+            ) : (
+              <><IconZap size={14} /> Execute Ingestion</>
+            )}
           </button>
         </div>
       </div>
@@ -300,10 +305,10 @@ export default function Upload() {
             <div className="card animate-fadein" style={{ border: '1px solid var(--green-l)', background: 'rgba(34,197,94,0.03)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
                 <div>
-                  <h3 style={{ fontSize: '13px', fontWeight: 700, color: 'var(--green-l)', margin: 0 }}>
-                    🏆 Verified Consensus Achieved
+                  <h3 style={{ fontSize: '13px', fontWeight: 700, color: 'var(--green-l)', margin: 0, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <IconCheckCircle size={15} color="var(--green-l)" /> Verified Consensus Achieved
                   </h3>
-                  <div className="mono" style={{ fontSize: '10px', color: 'var(--text-3)' }}>
+                  <div className="mono" style={{ fontSize: '10px', color: 'var(--text-3)', marginTop: '2px' }}>
                     BSA Sec 65B Certified · Zero Hallucinations
                   </div>
                 </div>
@@ -318,8 +323,8 @@ export default function Upload() {
               {/* Kingpin Detected */}
               {analysisResult.kingpin && (
                 <div style={{ padding: '8px 12px', background: 'rgba(124,58,237,0.1)', borderRadius: '6px', borderLeft: '3px solid var(--purple-l)', marginBottom: '10px' }}>
-                  <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--purple-l)' }}>
-                    👑 Identified Kingpin: {analysisResult.kingpin.name}
+                  <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--purple-l)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <IconCrown size={14} color="var(--purple-l)" /> Identified Kingpin: {analysisResult.kingpin.name}
                   </div>
                   <div style={{ fontSize: '11px', color: 'var(--text-2)', marginTop: '2px' }}>
                     {analysisResult.kingpin.rationale}
@@ -346,21 +351,23 @@ export default function Upload() {
               </div>
 
               <div style={{ display: 'flex', gap: '8px' }}>
-                <a href="/dashboard/graph" className="btn btn-primary btn-sm" style={{ flex: 1, justifyContent: 'center' }}>
-                  🕸 Open in Network Graph →
+                <a href="/dashboard/graph" className="btn btn-primary btn-sm" style={{ flex: 1, justifyContent: 'center', textDecoration: 'none' }}>
+                  <IconNetwork size={14} /> Open in Network Graph
                 </a>
-                <a href="/dashboard/suspects" className="btn btn-outline btn-sm" style={{ flex: 1, justifyContent: 'center' }}>
-                  👤 View Suspects →
+                <a href="/dashboard/suspects" className="btn btn-outline btn-sm" style={{ flex: 1, justifyContent: 'center', textDecoration: 'none' }}>
+                  <IconUsers size={14} /> View Suspects
                 </a>
               </div>
             </div>
           ) : (
             <div className="card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '160px', color: 'var(--text-3)', textAlign: 'center' }}>
               <div>
-                <div style={{ fontSize: '24px', marginBottom: '8px' }}>⚖️</div>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '8px' }}>
+                  <IconScale size={28} color="var(--text-3)" />
+                </div>
                 <div style={{ fontSize: '12px', fontWeight: 600 }}>Awaiting Dual-Agent Ingestion</div>
                 <div style={{ fontSize: '11px', marginTop: '4px' }}>
-                  Select a case template or paste text, then click "Execute TwinAI Ingestion".
+                  Select a case template or paste text, then click "Execute Ingestion".
                 </div>
               </div>
             </div>

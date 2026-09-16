@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
+import { IconUpload, IconNetwork, IconCrown, IconChat, IconFileText, IconCheck } from './common/Icons.jsx'
 import './Features.css'
 
 const features = [
   {
     num: '/01',
-    icon: '📤',
+    icon: <IconUpload size={22} color="var(--accent-purple-light)" />,
     title: 'Smart Data Ingestion',
     tag: 'DATA LAYER',
     tagClass: 'tag-purple',
@@ -14,7 +15,7 @@ const features = [
   },
   {
     num: '/02',
-    icon: '🕸',
+    icon: <IconNetwork size={22} color="var(--accent-cyan)" />,
     title: 'Visual Network Graph',
     tag: 'VISUALIZATION',
     tagClass: 'tag-cyan',
@@ -24,7 +25,7 @@ const features = [
   },
   {
     num: '/03',
-    icon: '👑',
+    icon: <IconCrown size={22} color="var(--accent-yellow)" />,
     title: 'Kingpin Identification',
     tag: 'ANALYTICS',
     tagClass: 'tag-yellow',
@@ -34,7 +35,7 @@ const features = [
   },
   {
     num: '/04',
-    icon: '💬',
+    icon: <IconChat size={22} color="var(--accent-green)" />,
     title: 'Conversational Querying',
     tag: 'AI CHAT',
     tagClass: 'tag-green',
@@ -49,9 +50,13 @@ const FeatureVisual = ({ type }) => {
     <div className="fv-upload">
       {['FIR_REPORT_2024.pdf', 'CDR_SUSPECTS.csv', 'BANK_STMT_OCT.xlsx'].map((f, i) => (
         <div className="fv-file" key={f} style={{ animationDelay: `${i * 0.2}s` }}>
-          <span className="fv-file-icon">{i === 0 ? '📄' : i === 1 ? '📊' : '📑'}</span>
+          <span className="fv-file-icon" style={{ display: 'flex', alignItems: 'center' }}>
+            <IconFileText size={14} color="var(--accent-purple-light)" />
+          </span>
           <span className="mono" style={{ fontSize: '11px', color: '#888' }}>{f}</span>
-          <span className="fv-badge mono" style={{ fontSize: '9px', color: 'var(--accent-green)' }}>PARSED ✓</span>
+          <span className="fv-badge mono" style={{ fontSize: '9px', color: 'var(--accent-green)', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+            <IconCheck size={10} /> PARSED
+          </span>
         </div>
       ))}
     </div>
@@ -181,7 +186,9 @@ const Features = () => {
               </div>
               {f.details.map(d => (
                 <div className="check-item" key={d}>
-                  <span className="check-mark accent-green">✓</span>
+                  <span className="check-mark accent-green" style={{ display: 'flex', alignItems: 'center' }}>
+                    <IconCheck size={12} color="var(--accent-green)" />
+                  </span>
                   <span style={{ fontSize: '13px', color: '#888' }}>{d}</span>
                 </div>
               ))}

@@ -1,4 +1,5 @@
 import React from 'react'
+import { IconScale, IconBuilding, IconShieldCheck, IconCreditCard, IconCheck } from './common/Icons.jsx'
 import './ComplianceStats.css'
 
 const COMPLIANCE_ITEMS = [
@@ -6,28 +7,28 @@ const COMPLIANCE_ITEMS = [
     code: 'BSA 2023 // SEC 65B',
     title: 'Electronic Evidence Admissibility',
     desc: 'Automated cryptographic hashes (SHA-256) and chain-of-custody certificates certified for Sessions and High Courts.',
-    icon: '⚖️',
+    icon: <IconScale size={20} color="#34d399" />,
     color: '#34d399'
   },
   {
     code: 'BNS 2023 // SEC 111',
     title: 'Organized Crime Syndicates',
     desc: 'Mathematical network centrality models structured specifically to meet legal thresholds for multi-state extortion and syndicate prosecutions.',
-    icon: '🏛️',
+    icon: <IconBuilding size={20} color="#fbbf24" />,
     color: '#fbbf24'
   },
   {
     code: 'ISO/IEC 27001:2022',
     title: 'Air-Gapped Government Security',
     desc: 'Enterprise-grade encryption in transit (TLS 1.3) and at rest (AES-256) with zero LLM training on confidential law enforcement data.',
-    icon: '🛡️',
+    icon: <IconShieldCheck size={20} color="#00f0ff" />,
     color: '#00f0ff'
   },
   {
     code: 'PMLA 2002 // SEC 3 & 4',
     title: 'Hawala & Mule Trail Tracing',
     desc: 'Multi-layer transaction tracing mapping rapid splitting, layering, and integration across nationalized and cooperative bank accounts.',
-    icon: '💳',
+    icon: <IconCreditCard size={20} color="#a78bfa" />,
     color: '#a78bfa'
   }
 ]
@@ -57,12 +58,14 @@ export default function ComplianceStats() {
                 <span className="comp-code font-mono" style={{ color: item.color, borderColor: item.color }}>
                   {item.code}
                 </span>
-                <span className="comp-icon">{item.icon}</span>
+                <span className="comp-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {item.icon}
+                </span>
               </div>
               <h3 className="comp-title font-display">{item.title}</h3>
               <p className="comp-desc">{item.desc}</p>
-              <div className="comp-status font-mono">
-                ✓ COMPLIANCE VERIFIED
+              <div className="comp-status font-mono" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <IconCheck size={12} color="#34d399" /> COMPLIANCE VERIFIED
               </div>
             </div>
           ))}

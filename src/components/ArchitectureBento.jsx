@@ -1,5 +1,6 @@
 import React from 'react'
 import chipImg from '../assets/quantum_cyber_chip.jpg'
+import { IconScale, IconCrown, IconShieldCheck, IconZap } from './common/Icons.jsx'
 import './ArchitectureBento.css'
 
 export default function ArchitectureBento() {
@@ -28,7 +29,7 @@ export default function ArchitectureBento() {
           <div className="bento-card bento-card-large glass-card">
             <div className="chip-card-content">
               <div className="chip-tag font-mono">
-                ✦ QUANTUM NEURAL ACCELERATOR
+                QUANTUM NEURAL ACCELERATOR
               </div>
               <h3 className="chip-headline font-display">
                 AI × INTELLIGENCE:<br />
@@ -67,7 +68,9 @@ export default function ArchitectureBento() {
               <span className="bento-mini-tag font-mono" style={{ color: '#fbbf24', borderColor: 'rgba(245,158,11,0.3)' }}>
                 AGENT DEBATE
               </span>
-              <span className="bento-icon">⚖️</span>
+              <span className="bento-icon">
+                <IconScale size={18} color="#fbbf24" />
+              </span>
             </div>
             <h4 className="bento-card-title font-display">
               Detective vs. Advocate Consensus
@@ -93,7 +96,9 @@ export default function ArchitectureBento() {
               <span className="bento-mini-tag font-mono" style={{ color: '#00f0ff', borderColor: 'rgba(0,240,255,0.3)' }}>
                 GRAPH MATHEMATICS
               </span>
-              <span className="bento-icon">👑</span>
+              <span className="bento-icon">
+                <IconCrown size={18} color="#00f0ff" />
+              </span>
             </div>
             <h4 className="bento-card-title font-display">
               Betweenness Centrality Matrix
@@ -103,7 +108,7 @@ export default function ArchitectureBento() {
             </p>
             <div className="math-formula-box font-mono">
               <div className="formula-line">C_B(v) = Σ (σ_st(v) / σ_st)</div>
-              <div className="formula-status">✓ Mastermind: 0.98 Peak | Victim: 0.05 Leaf</div>
+              <div className="formula-status">Mastermind: 0.98 Peak | Victim: 0.05 Leaf</div>
             </div>
           </div>
 
@@ -113,7 +118,9 @@ export default function ArchitectureBento() {
               <span className="bento-mini-tag font-mono" style={{ color: '#34d399', borderColor: 'rgba(16,185,129,0.3)' }}>
                 LEGAL PROVENANCE
               </span>
-              <span className="bento-icon">🛡️</span>
+              <span className="bento-icon">
+                <IconShieldCheck size={18} color="#34d399" />
+              </span>
             </div>
             <h4 className="bento-card-title font-display">
               Sec 65B Forensic Integrity
@@ -132,7 +139,9 @@ export default function ArchitectureBento() {
               <span className="bento-mini-tag font-mono" style={{ color: '#a78bfa', borderColor: 'rgba(139,92,246,0.3)' }}>
                 INTER-STATE SYNDICATES
               </span>
-              <span className="bento-icon">⚡</span>
+              <span className="bento-icon">
+                <IconZap size={18} color="#a78bfa" />
+              </span>
             </div>
             <h4 className="bento-card-title font-display">
               Cross-FIR Syndicate Unification
